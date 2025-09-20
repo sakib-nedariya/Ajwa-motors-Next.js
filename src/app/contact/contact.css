@@ -1,0 +1,170 @@
+/* reach out section */
+
+.reach-out-section.section-spacing{
+  padding: 5% 0 0 0;
+}
+.contact-texts {
+  width: 58%;
+}
+.contact-texts h1 {
+  color: var(--primary-color);
+}
+.contact-texts p {
+  font-size: 18px;
+  line-height: 30px;
+}
+.contact-texts .brand-motive {
+  color: var(--dark-text-color);
+}
+.contact-texts .brand-motive::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 3px;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  margin-top: 20px;
+}
+.contact-intro {
+  border-bottom: 1px solid var(--light-border-color);
+}
+.contact-info p {
+  font-size: 16px;
+  line-height: 30px;
+  color: var(--light-text-color);
+}
+
+.contact-info p strong {
+  color: var(--dark-text-color);
+}
+
+.contact-socials a {
+  display: inline-block;
+  background-color: #eeeff0;
+  color: var(--dark-text-color);
+  margin-right: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.contact-socials a:hover {
+  background-color: var(--primary-color);
+  color: var(--color-white);
+}
+
+.form-container {
+  width: 38%;
+  border: 2px solid var(--light-border-color);
+  border-radius: 30px;
+  padding: 30px;
+}
+.form-container h4 {
+  font-size: 24px;
+  color: var(--dark-text-color);
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container label span {
+  color: red;
+}
+
+.form-container form button {
+  width: fit-content;
+}
+
+/* direction section */
+
+.iframe-container {
+  border-radius: 30px;
+  overflow: hidden;
+  border: 8px solid white;
+  box-shadow: 0px 10px 40px 0px #07183212;
+}
+
+/* cta section */
+
+.container-fluid.cta-section {
+  background-color: var(--primary-color);
+}
+
+.cta-section h3 {
+  font-size: 32px;
+  line-height: 42px;
+  color: var(--color-white);
+}
+
+/* responsive css */
+
+@media (max-width: 1050px) {
+  /* reach out section */
+  .reach-out-section.section-spacing{
+    padding: 6% 8% 0 8%;
+  }
+}
+
+@media (max-width: 770px) {
+  /* reach out section */
+  .reach-out-section.section-spacing{
+    padding: 8% 6% 0 6%;
+  }
+  .contact-texts {
+    width: 100%;
+    margin-bottom: 60px;
+  }
+  .form-container {
+    width: 100%;
+  }
+
+  /* cta section */
+  .cta-section .flex-row {
+    flex-direction: row;
+  }
+  .cta-section h3 {
+    font-size: 26px;
+    line-height: 36px;
+  }
+  .cta-section button {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 425px) {
+  /* reach out section */
+  .reach-out-section.section-spacing{
+    padding: 10% 5% 0 5%;
+  }
+  .contact-texts {
+    margin-bottom: 36px;
+  }
+  .form-container {
+    padding: 20px;
+  }
+  .contact-texts p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .contact-info p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .form-container h4 {
+    font-size: 18px;
+  }
+
+  /* cta section */
+  .cta-section .flex-row {
+    flex-direction: column;
+    align-items: unset;
+  }
+  .cta-section h3 {
+    font-size: 22px;
+    line-height: 32px;
+  }
+  .cta-section button {
+    margin-top: 20px;
+    width: fit-content;
+  }
+}

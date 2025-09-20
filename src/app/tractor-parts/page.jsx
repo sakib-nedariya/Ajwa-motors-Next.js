@@ -1,5 +1,5 @@
 import React from "react";
-import "./tractor-parts.css"
+import "./tractor-parts.css";
 
 const page = () => {
   return (
@@ -44,7 +44,7 @@ const page = () => {
               </div>
 
               <div className="brand-item mb-10">
-                <input type="checkbox" id="massey" checked />
+                <input type="checkbox" id="massey" checked/>
                 <label for="massey">Massey</label>
                 <img src="/images/filter-brand-messey.png" alt="Massey" />
               </div>
@@ -61,10 +61,7 @@ const page = () => {
               <div className="brand-item mb-10">
                 <input type="checkbox" id="mahindra" />
                 <label for="mahindra">Mahindra</label>
-                <img
-                  src="/images/filter-brand-mahindra.png"
-                  alt="Mahindra"
-                />
+                <img src="/images/filter-brand-mahindra.png" alt="Mahindra" />
               </div>
 
               <div className="brand-item mb-10">
