@@ -1,0 +1,344 @@
+/* hero section */
+
+.hero-texts {
+  width: 48%;
+}
+
+.hero-texts h1 span {
+  color: var(--primary-color);
+}
+
+.hero-image {
+  width: 48%;
+}
+
+.hero-image img {
+  width: 100%;
+}
+
+/* brand section */
+
+.container-fluid.brand-section {
+  border-top: 1px solid var(--light-border-color);
+  border-bottom: 1px solid var(--light-border-color);
+}
+
+.marquee-wrapper {
+  --_speed: 60s;
+  --_gap: 3rem;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  gap: var(--_gap);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 15%,
+    rgba(0, 0, 0, 1) 85%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.marquee-track {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  gap: var(--_gap);
+  min-width: 100%;
+  animation: ticker var(--_speed) linear infinite;
+  padding: 20px 0;
+  list-style: none;
+}
+
+.marquee-track li {
+  flex: 0 0 auto;
+  width: 130px;
+}
+
+.marquee-track img {
+  width: 100%;
+  height: auto;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(calc(var(--_gap) * -1));
+  }
+  100% {
+    transform: translateX(calc(-100% - var(--_gap) * 2));
+  }
+}
+
+/* about us section */
+
+.about-image {
+  width: 48%;
+}
+.about-image img {
+  width: 100%;
+}
+.about-texts {
+  width: 48%;
+}
+.about-texts h2 {
+  font-family: var(--font-lexend-deca);
+  font-weight: 900;
+  color: var(--primary-color);
+}
+.about-texts h2 span {
+  font-family: var(--font-dancing-script);
+  font-weight: 700;
+  color: var(--dark-text-color);
+}
+.about-texts h2::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+  margin-top: 10px;
+}
+
+/* product section */
+
+.product-section {
+  background-color: #FAFAFA;
+}
+.product-section .product-intro h3 {
+  color: var(--primary-color);
+  font-family: var(--font-lexend-deca);
+  font-weight: 800;
+}
+.product-section .product-intro p {
+  font-weight: 600;
+}
+.product-section .product-intro p::after {
+  content: "";
+  display: block;
+  width: 150px;
+  height: 1px;
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+  margin-top: 10px;
+}
+.product-section .product-tabs a {
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--dark-text-color);
+}
+.product-section .product-tabs a.active {
+  color: var(--secondary-color);
+  border-bottom: 1px solid var(--secondary-color);
+}
+.product-section .product-tabs span {
+  color: var(--primary-color);
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  margin: 0 8px;
+}
+.tractor-models {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+.tractor-models img {
+  width: 100%;
+}
+
+/* brand highlight section */
+
+.container-fluid.brand-highlight {
+  background-image: url(/images/brand-highlight-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 40px;
+}
+.highlight-border {
+  border: 2px solid transparent;
+  border-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0)
+  );
+  border-image-slice: 1;
+  padding: 80px 0;
+}
+.bharatbenz-brand {
+  max-width: 500px;
+}
+.bharatbenz-brand h3 {
+  color: var(--color-white);
+}
+.bharatbenz-brand p {
+  color: var(--offwhite-text-color);
+}
+.bharatbenz-brand a {
+  color: var(--color-white);
+  text-transform: capitalize;
+  font-size: 16px;
+}
+.bharatbenz-brand a i {
+  margin-left: 10px;
+}
+
+/* key features section */
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+.features-grid .feature-card {
+  display: flex;
+  gap: 20px;
+}
+
+/* cta section */
+
+.container-fluid.cta-section {
+  background-color: var(--primary-color);
+}
+.cta-section h3 {
+  font-size: 32px;
+  line-height: 42px;
+  color: var(--color-white);
+}
+
+/* gallery section */
+
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+.images-grid img {
+  width: 100%;
+}
+
+/* responsive css */
+
+@media (max-width: 1050px) {
+  /* brand highlight section */
+  .container-fluid.brand-highlight {
+    padding: 40px 4%;
+  }
+  .highlight-border {
+    padding: 80px 4%;
+  }
+  .bharatbenz-brand {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 770px) {
+  /* hero section */
+  .hero-texts,
+  .hero-image {
+    width: 100%;
+  }
+  .hero-texts {
+    margin-bottom: 20px;
+  }
+
+  /* about us section */
+  .about-image {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .about-texts {
+    width: 100%;
+  }
+
+  /* product section */
+  .product-section .flex-row {
+    align-items: flex-start;
+  }
+  .product-section .product-intro {
+    margin-bottom: 20px;
+  }
+  .tractor-models {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* brand highlight section */
+  .container-fluid.brand-highlight {
+    padding: 25px 3%;
+  }
+  .highlight-border {
+    padding: 50px 3%;
+  }
+  .bharatbenz-brand {
+    max-width: 450px;
+  }
+
+  /* key features section */
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* cta section */
+  .cta-section .flex-row {
+    flex-direction: row;
+  }
+  .cta-section h3 {
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  /* gallery section */
+  .images-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 425px) {
+  /* product section */
+  .product-section .product-tabs a {
+    font-size: 16px;
+  }
+  .tractor-models {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .tractor-models.text-center {
+    text-align: center;
+  }
+
+  /* brand highlight section */
+  .container-fluid.brand-highlight {
+    padding: 10% 5%;
+  }
+  .highlight-border {
+    padding: 0;
+    border: unset;
+  }
+  .bharatbenz-brand {
+    max-width: 100%;
+  }
+
+  /* key features section */
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* cta section */
+  .cta-section .flex-row {
+    flex-direction: column;
+    align-items: unset;
+  }
+  .cta-section h3 {
+    font-size: 22px;
+    line-height: 32px;
+  }
+
+  /* gallery section */
+  .images-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

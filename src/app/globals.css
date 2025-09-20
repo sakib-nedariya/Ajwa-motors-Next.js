@@ -1,42 +1,312 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lexend+Deca:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --color-white: white;
+  --color-black: black;
+  --primary-color: #db0f38;
+  --secondary-color: #136f63;
+  --dark-text-color: #0f1628;
+  --light-text-color: #424652;
+  --light-border-color: #4246522b;
+  --offwhite-text-color: #ebf5ee;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-lexend-deca: "Lexend Deca", sans-serif;
+  --font-dancing-script: "Dancing Script", cursive;
+}
+
+/* texts css */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--dark-text-color);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 400;
+}
+
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 39px;
+  line-height: 52px;
+}
+
+h2 {
+  font-size: 38px;
+  line-height: 52px;
+}
+
+h3 {
+  font-size: 36px;
+  line-height: 50px;
+}
+
+h4 {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+h5 {
+  font-size: 18px;
+  line-height: 26px;
+}
+
+h6 {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--light-text-color);
+}
+
+/* link css */
+
+a {
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* button css */
+
+button {
+  padding: 8px 30px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background-color: var(--secondary-color);
+  color: var(--color-white);
+}
+
+.primary-btn a {
+  color: var(--color-white);
+}
+
+.secondary-btn {
+  background-color: var(--color-white);
+  color: var(--dark-text-color);
+}
+
+.secondary-btn a {
+  color: var(--dark-text-color);
+}
+
+/* form css */
+
+form label {
+  font-size: 14px;
+  line-height: 26px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--dark-text-color);
+}
+
+form input,
+form textarea {
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  border: 1px solid var(--light-border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 26px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* defined classes */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.section-spacing {
+  padding: 5% 0;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mb-30 {
+  margin-bottom: 30px;
+}
+.mb-40 {
+  margin-bottom: 40px;
+}
+.mb-50 {
+  margin-bottom: 50px;
+}
+.mb-60 {
+  margin-bottom: 60px;
+}
+
+/* responsive css */
+
+@media (max-width: 1050px) {
+  .section-spacing {
+    padding: 6% 8%;
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+@media (max-width: 770px) {
+  h1 {
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  h2 {
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  h3 {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+  h4 {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  h5 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  h6 {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .flex-row {
+    flex-direction: column;
+  }
+  
+  .section-spacing {
+    padding: 8% 6%;
+  }
+
+  .mb-20 {
+    margin-bottom: 16px;
+  }
+  .mb-30 {
+    margin-bottom: 24px;
+  }
+  .mb-40 {
+    margin-bottom: 32px;
+  }
+  .mb-50 {
+    margin-bottom: 40px;
+  }
+  .mb-60 {
+    margin-bottom: 48px;
+  }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@media (max-width: 425px) {
+  h1 {
+    font-size: 26px;
+    line-height: 36px;
+  }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+  h2 {
+    font-size: 24px;
+    line-height: 34px;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  h3 {
+    font-size: 22px;
+    line-height: 32px;
+  }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  h4 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  h5 {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  h6 {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  p,
+  a {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .text-center {
+    text-align: left;
+  }
+
+  .section-spacing {
+    padding: 10% 5%;
+  }
+
+  .mb-20 {
+    margin-bottom: 12px;
+  }
+  .mb-30 {
+    margin-bottom: 18px;
+  }
+  .mb-40 {
+    margin-bottom: 24px;
+  }
+  .mb-50 {
+    margin-bottom: 30px;
+  }
+  .mb-60 {
+    margin-bottom: 36px;
   }
 }

@@ -1,0 +1,239 @@
+/* about hero section */
+
+.about-hero-texts {
+  width: 58%;
+}
+.about-hero-image {
+  width: 38%;
+}
+.about-hero-image img {
+  width: 100%;
+}
+.about-hero-texts h1 {
+  color: var(--primary-color);
+}
+.about-hero-texts p {
+  font-size: 20px;
+  line-height: 32px;
+}
+.about-hero-texts .brand-motive {
+  color: var(--dark-text-color);
+}
+.about-hero-texts .brand-motive::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 3px;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  margin-top: 20px;
+}
+
+/* brand section */
+
+.container-fluid.brand-section {
+  border-top: 1px solid var(--light-border-color);
+  border-bottom: 1px solid var(--light-border-color);
+}
+
+.marquee-wrapper {
+  --_speed: 60s;
+  --_gap: 3rem;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  gap: var(--_gap);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 15%,
+    rgba(0, 0, 0, 1) 85%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.marquee-track {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  gap: var(--_gap);
+  min-width: 100%;
+  animation: ticker var(--_speed) linear infinite;
+  padding: 2% 0;
+  list-style: none;
+}
+
+.marquee-track li {
+  flex: 0 0 auto;
+  width: 130px;
+}
+
+.marquee-track img {
+  width: 100%;
+  height: auto;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(calc(var(--_gap) * -1));
+  }
+  100% {
+    transform: translateX(calc(-100% - var(--_gap) * 2));
+  }
+}
+
+/* info section */
+
+.info-section .flex-row {
+  gap: 40px;
+}
+.info-section h4 {
+  font-size: 24px;
+}
+.info-section .short-title-info {
+  color: var(--dark-text-color);
+  font-size: 18px;
+  line-height: 30px;
+}
+.info-section .short-title-info::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 2px;
+  border-radius: 10px;
+  background-color: var(--light-text-color);
+  opacity: 25%;
+  margin-top: 10px;
+}
+
+/* cta section */
+
+.container-fluid.cta-section {
+  background-color: var(--primary-color);
+}
+
+.cta-section h3 {
+  font-size: 32px;
+  line-height: 42px;
+  color: var(--color-white);
+}
+
+/* key features section */
+
+.container-fluid.features-section {
+  border-bottom: 1px solid var(--light-border-color);
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+.features-grid .feature-card {
+  display: flex;
+  gap: 20px;
+}
+
+/* gallery section */
+
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+.images-grid img {
+  width: 100%;
+}
+
+/* responsive css */
+
+@media (max-width: 770px) {
+  /* about page hero section */
+  .about-hero-texts,
+  .about-hero-image {
+    width: 100%;
+  }
+  .about-hero-texts {
+    margin-bottom: 30px;
+  }
+  .about-hero-texts p {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  /* info section */
+  .info-section h4 {
+    font-size: 18px;
+  }
+  .info-section .short-title-info {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  /* cta section */
+  .cta-section .flex-row {
+    flex-direction: row;
+  }
+  .cta-section h3 {
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  /* key features section */
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* gallery section */
+  .images-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 425px) {
+  /* about page hero section */
+  .about-hero-texts p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  /* brand section */
+  .tractor-brands {
+    gap: 20px;
+  }
+
+  /* info section */
+  .info-section .flex-row {
+    gap: 20px;
+  }
+  .info-section h4 {
+    font-size: 16px;
+  }
+  .info-section .short-title-info {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  /* cta section */
+  .cta-section .flex-row {
+    flex-direction: column;
+    align-items: unset;
+  }
+  .cta-section h3 {
+    font-size: 22px;
+    line-height: 32px;
+  }
+
+  /* key features section */
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* gallery section */
+  .images-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
