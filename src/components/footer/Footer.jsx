@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="footer section-spacing">
+    <footer className="footer section-spacing" style={{paddingBottom:"2%"}}>
       <div className="footer-container container mb-30">
         <div className="footer-about">
           <img

@@ -1,5 +1,8 @@
 import React from "react";
 import "./tractor-parts.css";
+import Link from "next/link";
+import Features from "@/components/key_features/Features";
+import Parts from "@/components/crafting_parts/Parts";
 
 const page = () => {
   return (
@@ -8,13 +11,13 @@ const page = () => {
 
       <div className="breadcrumb-section">
         <nav className="breadcrumb container" aria-label="Breadcrumb">
-          <a href="#">Home</a>
+          <Link href="#">Home</Link>
           <span className="breadcrumb-separator">/</span>
-          <a href="#">Products</a>
+          <Link href="#">Products</Link>
           <span className="breadcrumb-separator">/</span>
-          <a href="#">Tractors</a>
+          <Link href="#">Tractors</Link>
           <span className="breadcrumb-separator">/</span>
-          <a href="#">Model XZ-500</a>
+          <Link href="#">Model XZ-500</Link>
         </nav>
       </div>
 
@@ -39,19 +42,19 @@ const page = () => {
             <div className="brand-list">
               <div className="brand-item mb-10">
                 <input type="checkbox" id="eicher" />
-                <label for="eicher">Eicher</label>
+                <label htmlFor="eicher">Eicher</label>
                 <img src="/images/filter-brand-eicher.png" alt="Eicher" />
               </div>
 
               <div className="brand-item mb-10">
-                <input type="checkbox" id="massey" checked/>
-                <label for="massey">Massey</label>
+                <input type="checkbox" id="massey" checked />
+                <label htmlFor="massey">Massey</label>
                 <img src="/images/filter-brand-messey.png" alt="Massey" />
               </div>
 
               <div className="brand-item mb-10">
                 <input type="checkbox" id="john-deere" />
-                <label for="john-deere">John Deere</label>
+                <label htmlFor="john-deere">John Deere</label>
                 <img
                   src="/images/filter-brand-johndeere.png"
                   alt="John Deere"
@@ -60,19 +63,19 @@ const page = () => {
 
               <div className="brand-item mb-10">
                 <input type="checkbox" id="mahindra" />
-                <label for="mahindra">Mahindra</label>
+                <label htmlFor="mahindra">Mahindra</label>
                 <img src="/images/filter-brand-mahindra.png" alt="Mahindra" />
               </div>
 
               <div className="brand-item mb-10">
                 <input type="checkbox" id="ford" />
-                <label for="ford">Ford</label>
+                <label htmlFor="ford">Ford</label>
                 <img src="/images/filter-brand-ford.png" alt="Ford" />
               </div>
 
               <div className="brand-item">
                 <input type="checkbox" id="swaraj" />
-                <label for="swaraj">Swaraj</label>
+                <label htmlFor="swaraj">Swaraj</label>
                 <img src="/images/filter-brand-swaraj.png" alt="Swaraj" />
               </div>
             </div>
@@ -90,7 +93,7 @@ const page = () => {
                       src="/images/Product-angel-1.jpeg"
                       alt=""
                     />
-                    <a href="#">Engine Parts</a>
+                    <Link href="#">Engine Parts</Link>
                   </div>
                   <div className="category-card">
                     <img
@@ -98,7 +101,7 @@ const page = () => {
                       src="/images/Product-angel-2.jpeg"
                       alt=""
                     />
-                    <a href="#">Transmission</a>
+                    <Link href="#">Transmission</Link>
                   </div>
                   <div className="category-card">
                     <img
@@ -106,7 +109,7 @@ const page = () => {
                       src="/images/Product-angel-3.jpeg"
                       alt=""
                     />
-                    <a href="#">Hydraulics</a>
+                    <Link href="#">Hydraulics</Link>
                   </div>
                   <div className="category-card">
                     <img
@@ -114,7 +117,7 @@ const page = () => {
                       src="/images/Product-angel-4.jpeg"
                       alt=""
                     />
-                    <a href="#">Wheels & Tires</a>
+                    <Link href="#">Wheels & Tires</Link>
                   </div>
                   <div className="category-card">
                     <img
@@ -122,7 +125,7 @@ const page = () => {
                       src="/images/Product-angel-1.jpeg"
                       alt=""
                     />
-                    <a href="#">Electrical</a>
+                    <Link href="#">Electrical</Link>
                   </div>
                 </div>
               </div>
@@ -246,74 +249,11 @@ const page = () => {
 
       {/* cta section */}
 
-      <section className="container-fluid cta-section">
-        <div className="container section-spacing flex-row">
-          <h3>Crafting Parts to Your Exact Specifications.</h3>
-          <button className="secondary-btn">
-            <a href="#">Inquiry Now</a>
-          </button>
-        </div>
-      </section>
+      <Parts />
 
       {/*  key features section */}
 
-      <section className="container-fluid features-section">
-        <div className="container section-spacing">
-          <div className="mb-40">
-            <h3 className="mb-20">Key Features</h3>
-            <p className="mb-60">
-              Ajva Motors: Delivering exceptional quality, empowering our team,
-              and driving toward world-class manufacturing.
-            </p>
-          </div>
-          <div className="features-grid">
-            <div className="feature-card">
-              <div>
-                <img src="//images/trust-icon.png" alt="" />
-              </div>
-              <div>
-                <h5 className="mb-10">Trusted By Thousands</h5>
-                <p>Do in laughter securing smallest sensible no mr hastened.</p>
-              </div>
-            </div>
-            <div className="feature-card">
-              <div>
-                <img src="//images/vehicle-icon.png" alt="" />
-              </div>
-              <div>
-                <h5 className="mb-10">Wide Range of Vehicles</h5>
-                <p>
-                  As perhaps proceed in in brandon of limited unknown greatly.
-                </p>
-              </div>
-            </div>
-            <div className="feature-card">
-              <div>
-                <img src="//images/service-icon.png" alt="" />
-              </div>
-              <div>
-                <h5 className="mb-10">Reliable Service</h5>
-                <p>
-                  Distrusts fulfilled happiness unwilling as explained of
-                  difficult.
-                </p>
-              </div>
-            </div>
-            <div className="feature-card">
-              <div>
-                <img src="//images/buy-and-sell-icon.png" alt="" />
-              </div>
-              <div>
-                <h5 className="mb-10">Faster Buy & Sell</h5>
-                <p>
-                  No landlord of peculiar ladyship attended if contempt
-                  ecstatic.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Features />
     </>
   );
 };

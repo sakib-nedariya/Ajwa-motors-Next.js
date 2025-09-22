@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
 import "./home.css"
+import Slider from '@/components/slider/Slider'
+import Features from '@/components/key_features/Features'
+import Parts from '@/components/crafting_parts/Parts'
 
 const page = () => {
   return (
@@ -13,7 +16,7 @@ const page = () => {
             <h1 className="mb-20">Tailoring <span>Quality Parts to Your Specifications</span>, Trusted By A World of Customers.
             </h1>
             <p className="mb-30">Transforming visions into reality, Ajva Motors delivers quality and innovation worldwide.</p>
-            <button className="primary-btn"><a href="#">Inquiry Now</a></button>
+            <button className="primary-btn"><Link href="#">Inquiry Now</Link></button>
           </div>
           <div className="hero-image">
             <img src="/images/hero-image.png" alt="Hero Image" />
@@ -21,30 +24,9 @@ const page = () => {
         </div>
       </section>
 
-      {/* brand section */}
+      <Slider />
 
-      <section className="container-fluid brand-section">
-        <div className="container marquee-wrapper">
-          <ul className="tractor-brands marquee-track">
-            <li><img src="/images/mahindra.png" alt="slider_image" /></li>
-            <li><img src="/images/eicher.png" alt="slider_image" /></li>
-            <li><img src="/images/johndeere.png" alt="slider_image" /></li>
-            <li><img src="/images/swaraj.png" alt="slider_image" /></li>
-            <li><img src="/images/bharatbenz.png" alt="slider_image" /></li>
-            <li><img src="/images/hmt.png" alt="slider_image" /></li>
-            {/*  Repeat once more for seamless scroll  */}
-            <li><img src="/images/mahindra.png" alt="slider_image" /></li>
-            <li><img src="/images/eicher.png" alt="slider_image" /></li>
-            <li><img src="/images/johndeere.png" alt="slider_image" /></li>
-            <li><img src="/images/swaraj.png" alt="slider_image" /></li>
-            <li><img src="/images/bharatbenz.png" alt="slider_image" /></li>
-            <li><img src="/images/hmt.png" alt="slider_image" /></li>
-          </ul>
-        </div>
-      </section>
-
-
-      {/*/about us section /*/}
+      {/* about us section */}
 
       <section className="container flex-row about-us-section section-spacing">
         <div className="about-image">
@@ -110,60 +92,11 @@ const page = () => {
 
       {/*  key features section  */}
 
-      <section className="container section-spacing">
-        <div className="mb-40">
-          <h3 className="mb-20">Key Features</h3>
-          <p className="mb-60">Ajva Motors: Delivering exceptional quality, empowering our team, and driving toward world-class
-            manufacturing.</p>
-        </div>
-        <div className="features-grid">
-          <div className="feature-card">
-            <div>
-              <img src="/images/trust-icon.png" alt="" />
-            </div>
-            <div>
-              <h5 className="mb-10">Trusted By Thousands</h5>
-              <p>Do in laughter securing smallest sensible no mr hastened.</p>
-            </div>
-          </div>
-          <div className="feature-card">
-            <div>
-              <img src="/images/vehicle-icon.png" alt="" />
-            </div>
-            <div>
-              <h5 className="mb-10">Wide Range of Vehicles</h5>
-              <p>As perhaps proceed in in brandon of limited unknown greatly.</p>
-            </div>
-          </div>
-          <div className="feature-card">
-            <div>
-              <img src="/images/service-icon.png" alt="" />
-            </div>
-            <div>
-              <h5 className="mb-10">Reliable Service</h5>
-              <p>Distrusts fulfilled happiness unwilling as explained of difficult.</p>
-            </div>
-          </div>
-          <div className="feature-card">
-            <div>
-              <img src="/images/buy-and-sell-icon.png" alt="" />
-            </div>
-            <div>
-              <h5 className="mb-10">Faster Buy & Sell</h5>
-              <p>No landlord of peculiar ladyship attended if contempt ecstatic.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Features />
 
       {/* cta section  */}
 
-      <section className="container-fluid cta-section">
-        <div className="container section-spacing flex-row">
-          <h3>Crafting Parts to Your Exact Specifications.</h3>
-          <button className="secondary-btn"><a href="#">Inquiry Now</a></button>
-        </div>
-      </section>
+      <Parts />
 
       {/* gallery section */}
 
@@ -179,7 +112,7 @@ const page = () => {
           <img src="/images/gallery-4.png" alt="" />
         </div>
         <div className="text-center">
-          <button className="primary-btn"><a href="#">View All Images</a></button>
+          <button className="primary-btn"><Link href="#">View All Images</Link></button>
         </div>
       </section>/
     </>

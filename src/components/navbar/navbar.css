@@ -9,7 +9,9 @@
   width: 100%;
   padding: 20px 0;
 }
-
+.nav-menu a.active{
+  color: var(--primary-color);
+}
 .site-logo img {
   height: 50px;
 }

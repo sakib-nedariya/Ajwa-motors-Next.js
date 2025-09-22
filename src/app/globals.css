@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lexend+Deca:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lexend+Deca:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
   padding: 0;
@@ -10,7 +10,7 @@
 :root {
   --color-white: white;
   --color-black: black;
-  --primary-color: #db0f38;
+  --primary-color: #ec6102;
   --secondary-color: #136f63;
   --dark-text-color: #0f1628;
   --light-text-color: #424652;
@@ -101,7 +101,7 @@ button {
 }
 
 .primary-btn {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
   color: var(--color-white);
 }
 
@@ -163,7 +163,7 @@ form textarea {
 }
 
 .section-spacing {
-  padding: 5% 0;
+  padding: 4% 0;
 }
 
 .mb-10 {
@@ -227,7 +227,7 @@ form textarea {
   .flex-row {
     flex-direction: column;
   }
-  
+
   .section-spacing {
     padding: 8% 6%;
   }

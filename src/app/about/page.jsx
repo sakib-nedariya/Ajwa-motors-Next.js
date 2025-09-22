@@ -1,14 +1,20 @@
 import React from "react";
-import "./about.css"
+import "./about.css";
+import Link from "next/link";
+import Slider from "@/components/slider/Slider";
+import Features from "@/components/key_features/Features";
+import Parts from "@/components/crafting_parts/Parts";
 
 const About = () => {
   return (
     <>
       {/* about page hero section  */}
-      <section class="container section-spacing flex-row">
-        <div class="about-hero-texts">
-          <h1 class="mb-10">About Ajva Motors</h1>
-          <p class="mb-20 brand-motive">Driving Excellence in Manufacturing</p>
+      <section className="container section-spacing flex-row">
+        <div className="about-hero-texts">
+          <h1 className="mb-10">About Ajva Motors</h1>
+          <p className="mb-20 brand-motive">
+            Driving Excellence in Manufacturing
+          </p>
           <p>
             At Ajva Motors, excellence is our foundation. We take immense pride
             in delivering the highest quality products that consistently exceed
@@ -18,64 +24,24 @@ const About = () => {
             vision of becoming a world-class manufacturer.
           </p>
         </div>
-        <div class="about-hero-image">
+        <div className="about-hero-image">
           <img src="/images/about-page-hero-section-image.png" alt="" />
         </div>
       </section>
 
       {/* brand section  */}
 
-      <section class="container-fluid brand-section">
-        <div class="container brands-slider marquee-wrapper">
-          <ul class="tractor-brands marquee-track">
-            <li>
-              <img src="/images/mahindra.png" alt="" />
-            </li>
-            <li>
-              <img src="/images/eicher.png" alt="" />
-            </li>
-            <li>
-              <img src="/images/johndeere.png" alt="" />
-            </li>
-            <li>
-              <img src="/images/swaraj.png" alt="" />
-            </li>
-            <li>
-              <img src="/images/bharatbenz.png" alt="" />
-            </li>
-            <li>
-              <img src="/images/hmt.png" alt="" />
-            </li>
-            {/*  Repeat once more for seamless scroll */}
-            <li>
-              <img src="/images/mahindra.png" alt="" />
-            </li>
-            <li>
-              <img src="/images/eicher.png" alt="" />
-            </li>
-            <li>
-              <img src="/images/johndeere.png" alt="" />
-            </li>
-            <li>
-              <img src="/images/swaraj.png" alt="" />
-            </li>
-            <li>
-              <img src="/images/bharatbenz.png" alt="" />
-            </li>
-            <li>
-              <img src="/images/hmt.png" alt="" />
-            </li>
-          </ul>
-        </div>
-      </section>
+      <Slider />
 
       {/* info section */}
 
-      <section class="info-section container section-spacing">
-        <div class="flex-row mb-40">
-          <div class="info-box">
-            <h4 class="mb-10">Our Vision & Mission</h4>
-            <p class="mb-20 short-title-info">Elevating Tractor Body Parts</p>
+      <section className="info-section container section-spacing">
+        <div className="flex-row mb-40">
+          <div className="info-box">
+            <h4 className="mb-10">Our Vision & Mission</h4>
+            <p className="mb-20 short-title-info">
+              Elevating Tractor Body Parts
+            </p>
             <p>
               Our Vision And Mission Are Clear: We Are Dedicated To Enhancing
               The Performance And Quality Of Tractor Body Parts By Providing
@@ -87,9 +53,11 @@ const About = () => {
             </p>
           </div>
 
-          <div class="info-box">
-            <h4 class="mb-10">Our Story</h4>
-            <p class="mb-20 short-title-info">Building Trust Through Quality</p>
+          <div className="info-box">
+            <h4 className="mb-10">Our Story</h4>
+            <p className="mb-20 short-title-info">
+              Building Trust Through Quality
+            </p>
             <p>
               Our Journey Started With The Aim Of Introducing The Market To The
               Best Quality Products. Through Gradual Expansion And Unwavering
@@ -101,9 +69,9 @@ const About = () => {
           </div>
         </div>
 
-        <div class="full-width-box">
-          <h4 class="mb-10">Our Core Values</h4>
-          <p class="mb-20 short-title-info">
+        <div className="full-width-box">
+          <h4 className="mb-10">Our Core Values</h4>
+          <p className="mb-20 short-title-info">
             Quality, Transparency, And Customer Satisfaction
           </p>
           <p>
@@ -122,94 +90,31 @@ const About = () => {
 
       {/* cta section  */}
 
-      <section class="container-fluid cta-section">
-        <div class="container section-spacing flex-row">
-          <h3>Crafting Parts to Your Exact Specifications.</h3>
-          <button class="secondary-btn">
-            <a href="#">Inquiry Now</a>
-          </button>
-        </div>
-      </section>
+      <Parts />
 
       {/* key features section */}
 
-      <section class="container-fluid features-section">
-        <div class="container section-spacing">
-          <div class="mb-40">
-            <h3 class="mb-20">Key Features</h3>
-            <p class="mb-60">
-              Ajva Motors: Delivering exceptional quality, empowering our team,
-              and driving toward world-class manufacturing.
-            </p>
-          </div>
-          <div class="features-grid">
-            <div class="feature-card">
-              <div>
-                <img src="/images/trust-icon.png" alt="" />
-              </div>
-              <div>
-                <h5 class="mb-10">Trusted By Thousands</h5>
-                <p>Do in laughter securing smallest sensible no mr hastened.</p>
-              </div>
-            </div>
-            <div class="feature-card">
-              <div>
-                <img src="/images/vehicle-icon.png" alt="" />
-              </div>
-              <div>
-                <h5 class="mb-10">Wide Range of Vehicles</h5>
-                <p>
-                  As perhaps proceed in in brandon of limited unknown greatly.
-                </p>
-              </div>
-            </div>
-            <div class="feature-card">
-              <div>
-                <img src="/images/service-icon.png" alt="" />
-              </div>
-              <div>
-                <h5 class="mb-10">Reliable Service</h5>
-                <p>
-                  Distrusts fulfilled happiness unwilling as explained of
-                  difficult.
-                </p>
-              </div>
-            </div>
-            <div class="feature-card">
-              <div>
-                <img src="/images/buy-and-sell-icon.png" alt="" />
-              </div>
-              <div>
-                <h5 class="mb-10">Faster Buy & Sell</h5>
-                <p>
-                  No landlord of peculiar ladyship attended if contempt
-                  ecstatic.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Features />
 
       {/*/gallery section / */}
 
-      <section class="container section-spacing">
-        <div class="text-center">
-          <h3 class="mb-20">Explore Our Craftsmanship</h3>
-          <p class="mb-50">
+      <section className="container section-spacing">
+        <div className="text-center">
+          <h3 className="mb-20">Explore Our Craftsmanship</h3>
+          <p className="mb-50">
             Discover a visual journey showcasing our precision and quality in
             every component.
           </p>
         </div>
-        <div class="images-grid mb-50">
+        <div className="images-grid mb-50">
           <img src="/images/gallery-1.png" alt="" />
           <img src="/images/gallery-2.png" alt="" />
           <img src="/images/gallery-3.png" alt="" />
           <img src="/images/gallery-4.png" alt="" />
         </div>
-        <div class="text-center">
-          <button class="primary-btn">
-            <a href="#">View All Images</a>
+        <div className="text-center">
+          <button className="primary-btn">
+            <Link href="#">View All Images</Link>
           </button>
         </div>
       </section>

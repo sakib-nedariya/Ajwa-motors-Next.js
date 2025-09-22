@@ -1,5 +1,8 @@
 import React from "react";
-import "./contact.css"
+import "./contact.css";
+import Link from "next/link";
+import Features from "@/components/key_features/Features";
+import Parts from "@/components/crafting_parts/Parts";
 
 const page = () => {
   return (
@@ -36,18 +39,18 @@ const page = () => {
             </p>
           </div>
           <div className="contact-socials">
-            <a href="#">
+            <Link href="#">
               <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="#">
+            </Link>
+            <Link href="#">
               <i className="fab fa-instagram"></i>
-            </a>
-            <a href="#">
+            </Link>
+            <Link href="#">
               <i className="fab fa-youtube"></i>
-            </a>
-            <a href="#">
+            </Link>
+            <Link href="#">
               <i className="fab fa-pinterest-p"></i>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="form-container">
@@ -90,7 +93,7 @@ const page = () => {
             ></textarea>
             <div className="text-center">
               <button className="primary-btn" type="submit">
-                <a href="#">Submit Information</a>
+                <Link href="#">Submit Information</Link>
               </button>
             </div>
           </form>
@@ -115,14 +118,11 @@ const page = () => {
 
       {/*  cta section  */}
 
-      <section className="container-fluid cta-section">
-        <div className="container section-spacing flex-row">
-          <h3>Crafting Parts to Your Exact Specifications.</h3>
-          <button className="secondary-btn">
-            <a href="#">Inquiry Now</a>
-          </button>
-        </div>
-      </section>
+      <Parts />
+
+      {/* key features section */}
+
+      <Features />
     </>
   );
 };
