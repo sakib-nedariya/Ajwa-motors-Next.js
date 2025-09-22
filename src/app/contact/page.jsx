@@ -7,8 +7,6 @@ import Parts from "@/components/crafting_parts/Parts";
 const page = () => {
   return (
     <>
-      {/* reach out section */}
-
       <section className="container reach-out-section section-spacing flex-row">
         <div className="contact-texts">
           <div className="contact-intro mb-40">
@@ -100,8 +98,6 @@ const page = () => {
         </div>
       </section>
 
-      {/* direction section  */}
-
       <section className="container section-spacing">
         <div className="iframe-container">
           <iframe
@@ -116,11 +112,7 @@ const page = () => {
         </div>
       </section>
 
-      {/*  cta section  */}
-
       <Parts />
-
-      {/* key features section */}
 
       <Features />
     </>

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import "./home.css"
+import "./globals.css"
 import Slider from '@/components/slider/Slider'
 import Features from '@/components/key_features/Features'
 import Parts from '@/components/crafting_parts/Parts'
@@ -114,7 +115,7 @@ const page = () => {
         <div className="text-center">
           <button className="primary-btn"><Link href="#">View All Images</Link></button>
         </div>
-      </section>/
+      </section>
     </>
   )
 }

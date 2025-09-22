@@ -3,25 +3,13 @@ import "./tractor-parts.css";
 import Link from "next/link";
 import Features from "@/components/key_features/Features";
 import Parts from "@/components/crafting_parts/Parts";
+import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 
 const page = () => {
   return (
     <>
-      {/* Breadcrumb */}
 
-      <div className="breadcrumb-section">
-        <nav className="breadcrumb container" aria-label="Breadcrumb">
-          <Link href="#">Home</Link>
-          <span className="breadcrumb-separator">/</span>
-          <Link href="#">Products</Link>
-          <span className="breadcrumb-separator">/</span>
-          <Link href="#">Tractors</Link>
-          <span className="breadcrumb-separator">/</span>
-          <Link href="#">Model XZ-500</Link>
-        </nav>
-      </div>
-
-      {/*  catalog-section */}
+      <BreadCrumb />
 
       <section className="container section-spacing">
         <div className="catalog-section-heading mb-60">

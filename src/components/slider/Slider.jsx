@@ -3,7 +3,6 @@ import React from "react";
 const Slider = () => {
   return (
     <>
-
       {/* brand section */}
       <section className="container-fluid brand-section">
         <div className="container marquee-wrapper">
@@ -48,7 +47,6 @@ const Slider = () => {
           </ul>
         </div>
       </section>
-      
     </>
   );
 };
