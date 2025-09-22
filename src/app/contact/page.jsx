@@ -1,10 +1,19 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import "./contact.css";
 import Link from "next/link";
 import Features from "@/components/key_features/Features";
 import Parts from "@/components/crafting_parts/Parts";
+import "../../app/home.css"
 
 const page = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null; // Avoid
   return (
     <>
       <section className="container reach-out-section section-spacing flex-row">

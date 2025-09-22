@@ -11,10 +11,11 @@ const Navbar = () => {
   return (
     <header className="container-fluid navbar">
       <div className="site-header container flex-row">
-        <div className="site-logo">
-          <img src="/images/ajvamotor-logo.png" alt="Ajva Motors Logo" />
-        </div>
-
+        <Link href="/">
+          <div className="site-logo">
+            <img src="/images/ajvamotor-logo.png" alt="Ajva Motors Logo" />
+          </div>
+        </Link>
         <button
           className="menu-toggle"
           id="menuToggle"

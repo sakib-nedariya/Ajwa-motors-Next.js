@@ -1,5 +1,5 @@
 import React from "react";
-import "./tractor-parts.css";
+import "../tractor-parts/tractor-parts.css";
 import Link from "next/link";
 import Features from "@/components/key_features/Features";
 import Parts from "@/components/crafting_parts/Parts";
