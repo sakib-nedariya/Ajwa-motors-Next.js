@@ -105,6 +105,8 @@
 /* product section */
 
 .product-section {
+  width: 100%;
+  overflow-x: hidden;
   background-color: #FAFAFA;
 }
 .product-section .product-intro h3 {

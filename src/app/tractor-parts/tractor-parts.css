@@ -104,13 +104,10 @@
   gap: 20px;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 30px;
 }
-
-.product-category {
-  max-width: 530px;
-}
-
 .category-grid {
+  width: 100%;
   display: flex;
   gap: 10px;
   overflow-x: auto;
@@ -130,6 +127,10 @@
 }
 
 .category-card:hover {
+  border: 1px solid var(--primary-color);
+}
+
+.category-card.active {
   border: 1px solid var(--primary-color);
 }
 
@@ -367,10 +368,7 @@
   .products-grid {
     grid-template-columns: 1fr;
   }
-  .product-category {
-    max-width: 300px;
-  }
-
+ 
   /* cta section */
   .cta-section .flex-row {
     flex-direction: column;

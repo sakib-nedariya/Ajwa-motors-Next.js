@@ -69,7 +69,7 @@ const page = () => {
           </aside>
 
           <div className="products-section">
-            <div className="product-sorting mb-50">
+            <div className="product-sorting">
               {/* Category Cards */}
               <div className="product-category">
                 <h4 className="mb-10">Browse by Category</h4>
