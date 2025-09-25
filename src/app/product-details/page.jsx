@@ -68,9 +68,6 @@ const page = () => {
           <button className="tab-btn" data-tab="specs">
             Specifications
           </button>
-          <button className="tab-btn" data-tab="docs">
-            Documentation
-          </button>
         </div>
 
         <div className="tab-content">

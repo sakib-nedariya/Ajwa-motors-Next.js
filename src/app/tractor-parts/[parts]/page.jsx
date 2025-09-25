@@ -16,7 +16,6 @@ const Page = ({ params }) => {
   const [selectedBrand, setSelectedBrand] = useState("all");
   const [activeCategory, setActiveCategory] = useState(null);
 
-  // Fetch all brands
   useEffect(() => {
     const getBrands = async () => {
       try {
@@ -31,7 +30,6 @@ const Page = ({ params }) => {
     getBrands();
   }, []);
 
-  // Fetch all categories for the page
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -46,7 +44,6 @@ const Page = ({ params }) => {
     getCategories();
   }, []);
 
-  // Fetch products for a category id
   const fetchProductsByCategory = async (catId) => {
     try {
       const res = await axios.get(
@@ -59,11 +56,9 @@ const Page = ({ params }) => {
     }
   };
 
-  // When page loads with model id
   useEffect(() => {
     if (id) {
       fetchProductsByCategory(id);
-      // Set selected brand based on first product's brand
       axios
         .get(`https://ajvamotors.com/api/getProductByModalId/${id}`)
         .then((res) => {
@@ -76,7 +71,6 @@ const Page = ({ params }) => {
     }
   }, [id]);
 
-  // Filter categories based on selected brand
   const filteredCategories =
     selectedBrand === "all"
       ? categories
@@ -84,7 +78,6 @@ const Page = ({ params }) => {
           (cat) => String(cat.brand_id) === String(selectedBrand)
         );
 
-  // Default first category active if none selected
   useEffect(() => {
     if (filteredCategories.length > 0 && !activeCategory) {
       setActiveCategory(filteredCategories[0].id);
@@ -92,7 +85,6 @@ const Page = ({ params }) => {
     }
   }, [filteredCategories, activeCategory]);
 
-  // Handle category click
   const handleCategoryClick = (catId) => {
     setActiveCategory(catId);
     fetchProductsByCategory(catId);
@@ -109,7 +101,6 @@ const Page = ({ params }) => {
         </div>
 
         <div className="main-content">
-          {/* Sidebar for brands */}
           <aside className="sidebar">
             <h4 className="filter-toggle">
               Select Tractor Brand
@@ -138,7 +129,7 @@ const Page = ({ params }) => {
                     checked={selectedBrand === String(brand.id)}
                     onChange={() => {
                       setSelectedBrand(String(brand.id));
-                      setActiveCategory(null); // reset category
+                      setActiveCategory(null);
                     }}
                   />
                   <label htmlFor={`brand-${brand.id}`}>{brand.b_name}</label>
@@ -151,10 +142,8 @@ const Page = ({ params }) => {
             </div>
           </aside>
 
-          {/* Products section */}
-          <div className="products-section" style={{ overflow: "hidden" }}>
+          <div className="products-section">
             <div className="product-sorting">
-              {/* Category Cards */}
               <div className="product-category">
                 <h4 className="mb-10">Browse by Category</h4>
                 <div className="category-grid">
@@ -185,13 +174,15 @@ const Page = ({ params }) => {
             <div className="products-grid mb-30">
               {products.length > 0 ? (
                 products.map((product) => (
-                  <div key={product.id} className="product-card">
-                    <img
-                      src={`https://ajvamotors.com/upload/product/${product.p_thumbnail}`}
-                      alt={product.p_title}
-                    />
-                    <p>{product.p_title}</p>
-                  </div>
+                  <Link href={`/tractor-parts/${activeCategory}/${product.id}`}>
+                    <div className="product-card">
+                      <img
+                        src={`https://ajvamotors.com/upload/product/${product.p_thumbnail}`}
+                        alt={product.p_title}
+                      />
+                      <p>{product.p_title}</p>
+                    </div>
+                  </Link>
                 ))
               ) : (
                 <p>No products found for this modal.</p>
