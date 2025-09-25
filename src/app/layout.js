@@ -5,7 +5,6 @@ import "../components/footer/footer.css"
 
 export const metadata = {
   title: 'Ajva Motors | Quality Tractor & Truck Parts',
-  description: 'Leading supplier of tractor and truck parts worldwide.',
 };
 
 export default function RootLayout({ children }) {
