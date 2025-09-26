@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="footer section-spacing" style={{paddingBottom:"2%"}}>
+    <footer className="footer section-spacing" style={{ paddingBottom: "2%" }}>
       <div className="footer-container container mb-30">
         <div className="footer-about">
           <img
@@ -37,43 +37,46 @@ const Footer = () => {
           <h4 className="mb-20">Quick Links</h4>
           <ul>
             <li>
-              <Link href="#">About Us</Link>
+              <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="#">Our Products</Link>
+              <Link href="/about">About Us</Link>
             </li>
             <li>
-              <Link href="#">Gallery</Link>
+              <Link href="/tractor-parts">Tractor Parts</Link>
             </li>
             <li>
-              <Link href="#">Logistic</Link>
+              <Link href="/truck-parts">Truck Parts</Link>
             </li>
             <li>
-              <Link href="#">Contact</Link>
+              <Link href="/contact">Contact</Link>
+            </li>
+            <li>
+              <Link href="#">PDF Catalogue</Link>
             </li>
           </ul>
         </div>
 
         <div className="footer-products">
-          <h4 className="mb-20">Our Products</h4>
+          <h4 className="mb-20">Our Brands</h4>
           <ul>
             <li>
-              <Link href="#">Swaraj Tractor</Link>
+              <Link href="/tractor-parts">Mahindra</Link>
             </li>
             <li>
-              <Link href="#">Massey Furugusan</Link>
+              <Link href="/tractor-parts">Swaraj</Link>
             </li>
             <li>
-              <Link href="#">Mahindra</Link>
+              <Link href="/tractor-parts">Ford</Link>
             </li>
             <li>
-              <Link href="#">Eicher</Link>
+              <Link href="/tractor-parts">Ferguson</Link>
             </li>
             <li>
-              <Link href="#">HMT</Link>
+              <Link href="/tractor-parts">Sonalika</Link>
             </li>
             <li>
-              <Link href="#">Ford</Link>
+              <Link href="/tractor-parts">John Deere</Link>
             </li>
           </ul>
         </div>
@@ -85,14 +88,14 @@ const Footer = () => {
             <br />
             State Highway, Nr. Teniwada Bridge, Behind Sirtaj Namkeen
             <br />
-            At: Kotadi, Post : Chhapi, Ta : Vadgam Dist : Banaskantha , Gujarat
-            - 385210 India
+            At: Kotadi, Post : Chhapi, Ta : Vadgam Dist : Banaskantha , Gujarat - India
+            , 385210
           </p>
           <p className="mb-10">
-            <strong>Phone:</strong> +91 992-548-9951 | +91 701-605-2536
+            <strong>Phone:</strong> +91 992-548-9951
           </p>
           <p>
-            <strong>Email:</strong> Ajvamotors@Yahoo.In
+            <strong>Email:</strong> ajvamotors@yahoo.in
           </p>
         </div>
       </div>

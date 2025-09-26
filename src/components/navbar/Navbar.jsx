@@ -63,6 +63,13 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
+            <li>
+              <Link
+                href="#"
+              >
+                PDF Catalogue
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

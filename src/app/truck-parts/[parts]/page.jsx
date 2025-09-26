@@ -1,0 +1,213 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../truck-parts.css";
+import Features from "@/components/key_features/Features";
+import Parts from "@/components/crafting_parts/Parts";
+import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
+import Link from "next/link";
+
+const Page = ({ params }) => {
+  const { parts: id } = params;
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState("all");
+  const [activeCategory, setActiveCategory] = useState(id);
+
+  useEffect(() => {
+    const getBrands = async () => {
+      try {
+        const res = await axios.get(
+          "https://ajvamotors.com/api/getBrandsBySubCategory/29"
+        );
+        setBrands(res.data);
+      } catch (err) {
+        console.error("Error fetching brands:", err);
+      }
+    };
+    getBrands();
+  }, []);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await axios.get(
+          "https://ajvamotors.com/api/getCategoryBySubCategory/29"
+        );
+        setCategories(res.data);
+      } catch (err) {
+        console.error("Error fetching categories:", err);
+      }
+    };
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      if (id) {
+        const selectedCat = categories.find((cat) => String(cat.id) === String(id));
+        if (selectedCat) {
+          setSelectedBrand(String(selectedCat.brand_id));
+          setActiveCategory(String(selectedCat.id));
+          fetchProductsByCategory(selectedCat.id); 
+        } else {
+          setSelectedBrand("all");
+          setActiveCategory(String(categories[0].id));
+          fetchProductsByCategory(categories[0].id);
+        }
+      } else {
+        setSelectedBrand("all");
+        setActiveCategory(String(categories[0].id));
+        fetchProductsByCategory(categories[0].id);
+      }
+    }
+  }, [id, categories]);
+
+  const fetchProductsByCategory = async (catId) => {
+    try {
+      const res = await axios.get(
+        `https://ajvamotors.com/api/getProductByModalId/${catId}`
+      );
+      setProducts(res.data);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+      setProducts([]);
+    }
+  };
+
+  const filteredCategories =
+    selectedBrand === "all"
+      ? categories
+      : categories.filter((cat) => String(cat.brand_id) === String(selectedBrand));
+
+  const handleCategoryClick = (catId) => {
+    setActiveCategory(String(catId));
+    fetchProductsByCategory(catId);
+  };
+
+  return (
+    <>
+      <BreadCrumb />
+
+      <section className="container section-spacing">
+        <div className="catalog-section-heading mb-60">
+          <h1 className="mb-10">Products Catalogue</h1>
+          <p>Browse spare parts by brand or view all products below.</p>
+        </div>
+
+        <div className="main-content">
+          <aside className="sidebar">
+            <h4 className="filter-toggle">
+              Select Truck Brand
+              <i className="fa-solid fa-caret-down"></i>
+            </h4>
+
+            <div className="brand-list">
+              <div className="brand-item mb-10">
+                <input
+                  type="checkbox"
+                  id="all"
+                  checked={selectedBrand === "all"}
+                  onChange={() => {
+                    setSelectedBrand("all");
+                    if (categories.length > 0) {
+                      setActiveCategory(String(categories[0].id));
+                      fetchProductsByCategory(categories[0].id);
+                    }
+                  }}
+                />
+                <label htmlFor="all">All</label>
+              </div>
+
+              {brands.map((brand) => (
+                <div key={brand.id} className="brand-item mb-10">
+                  <input
+                    type="checkbox"
+                    id={`brand-${brand.id}`}
+                    checked={selectedBrand === String(brand.id)}
+                    onChange={() => {
+                      setSelectedBrand(String(brand.id));
+                      const filtered = categories.filter(
+                        (cat) => String(cat.brand_id) === String(brand.id)
+                      );
+                      if (filtered.length > 0) {
+                        setActiveCategory(String(filtered[0].id));
+                        fetchProductsByCategory(filtered[0].id);
+                      } else {
+                        setActiveCategory(null);
+                        setProducts([]);
+                      }
+                    }}
+                  />
+                  <label htmlFor={`brand-${brand.id}`}>{brand.b_name}</label>
+                  <img
+                    src={`https://ajvamotors.com/upload/brand/${brand.b_image}`}
+                    alt={brand.b_name}
+                  />
+                </div>
+              ))}
+            </div>
+          </aside>
+
+          <div className="products-section">
+            <div className="product-sorting">
+              <div className="product-category">
+                <h4 className="mb-10">Browse by Category</h4>
+                <div className="category-grid">
+                  {filteredCategories.length > 0 ? (
+                    filteredCategories.map((cat) => (
+                      <div
+                        key={cat.id}
+                        className={`category-card ${
+                          activeCategory === String(cat.id) ? "active" : ""
+                        }`}
+                        onClick={() => handleCategoryClick(cat.id)}
+                      >
+                        <img
+                          className="category-visual"
+                          src={`https://ajvamotors.com/upload/category/${cat.c_image}`}
+                          alt={cat.c_name}
+                        />
+                        <Link href="#">{cat.c_name}</Link>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No categories found.</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="products-grid mb-30">
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <Link
+                    key={product.id}
+                    href={`/truck-parts/${activeCategory}/${product.id}`}
+                  >
+                    <div className="product-card">
+                      <img
+                        src={`https://ajvamotors.com/upload/product/${product.p_thumbnail}`}
+                        alt={product.p_title}
+                      />
+                      <p>{product.p_title}</p>
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <p>No products found for this modal.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Parts />
+      <Features />
+    </>
+  );
+};
+
+export default Page;

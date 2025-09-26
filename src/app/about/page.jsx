@@ -112,11 +112,6 @@ const About = () => {
           <img src="/images/gallery-3.png" alt="" />
           <img src="/images/gallery-4.png" alt="" />
         </div>
-        <div className="text-center">
-          <button className="primary-btn">
-            <Link href="#">View All Images</Link>
-          </button>
-        </div>
       </section>
     </>
   );
