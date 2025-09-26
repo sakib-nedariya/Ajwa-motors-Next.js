@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, use } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../tractor-parts.css";
 import Features from "@/components/key_features/Features";
@@ -9,12 +9,12 @@ import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 import Link from "next/link";
 
 const Page = ({ params }) => {
-  const { id } = use(params);
+  const { parts: id } = params;
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("all");
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(id);
 
   useEffect(() => {
     const getBrands = async () => {
@@ -44,6 +44,27 @@ const Page = ({ params }) => {
     getCategories();
   }, []);
 
+  useEffect(() => {
+    if (categories.length > 0) {
+      if (id) {
+        const selectedCat = categories.find((cat) => String(cat.id) === String(id));
+        if (selectedCat) {
+          setSelectedBrand(String(selectedCat.brand_id));
+          setActiveCategory(String(selectedCat.id));
+          fetchProductsByCategory(selectedCat.id); // Fetch products for the URL category
+        } else {
+          setSelectedBrand("all");
+          setActiveCategory(String(categories[0].id));
+          fetchProductsByCategory(categories[0].id); // Fetch products for the first category
+        }
+      } else {
+        setSelectedBrand("all");
+        setActiveCategory(String(categories[0].id));
+        fetchProductsByCategory(categories[0].id); // Fetch products for the first category
+      }
+    }
+  }, [id, categories]);
+
   const fetchProductsByCategory = async (catId) => {
     try {
       const res = await axios.get(
@@ -56,37 +77,13 @@ const Page = ({ params }) => {
     }
   };
 
-  useEffect(() => {
-    if (id) {
-      fetchProductsByCategory(id);
-      axios
-        .get(`https://ajvamotors.com/api/getProductByModalId/${id}`)
-        .then((res) => {
-          if (res.data.length > 0) {
-            setSelectedBrand(String(res.data[0].p_brand_id));
-          } else {
-            setSelectedBrand("all");
-          }
-        });
-    }
-  }, [id]);
-
   const filteredCategories =
     selectedBrand === "all"
       ? categories
-      : categories.filter(
-          (cat) => String(cat.brand_id) === String(selectedBrand)
-        );
-
-  useEffect(() => {
-    if (filteredCategories.length > 0 && !activeCategory) {
-      setActiveCategory(filteredCategories[0].id);
-      fetchProductsByCategory(filteredCategories[0].id);
-    }
-  }, [filteredCategories, activeCategory]);
+      : categories.filter((cat) => String(cat.brand_id) === String(selectedBrand));
 
   const handleCategoryClick = (catId) => {
-    setActiveCategory(catId);
+    setActiveCategory(String(catId));
     fetchProductsByCategory(catId);
   };
 
@@ -115,7 +112,10 @@ const Page = ({ params }) => {
                   checked={selectedBrand === "all"}
                   onChange={() => {
                     setSelectedBrand("all");
-                    setActiveCategory(null);
+                    if (categories.length > 0) {
+                      setActiveCategory(String(categories[0].id));
+                      fetchProductsByCategory(categories[0].id);
+                    }
                   }}
                 />
                 <label htmlFor="all">All</label>
@@ -129,7 +129,16 @@ const Page = ({ params }) => {
                     checked={selectedBrand === String(brand.id)}
                     onChange={() => {
                       setSelectedBrand(String(brand.id));
-                      setActiveCategory(null);
+                      const filtered = categories.filter(
+                        (cat) => String(cat.brand_id) === String(brand.id)
+                      );
+                      if (filtered.length > 0) {
+                        setActiveCategory(String(filtered[0].id));
+                        fetchProductsByCategory(filtered[0].id);
+                      } else {
+                        setActiveCategory(null);
+                        setProducts([]);
+                      }
                     }}
                   />
                   <label htmlFor={`brand-${brand.id}`}>{brand.b_name}</label>
@@ -152,7 +161,7 @@ const Page = ({ params }) => {
                       <div
                         key={cat.id}
                         className={`category-card ${
-                          activeCategory === cat.id ? "active" : ""
+                          activeCategory === String(cat.id) ? "active" : ""
                         }`}
                         onClick={() => handleCategoryClick(cat.id)}
                       >
@@ -174,7 +183,10 @@ const Page = ({ params }) => {
             <div className="products-grid mb-30">
               {products.length > 0 ? (
                 products.map((product) => (
-                  <Link href={`/tractor-parts/${activeCategory}/${product.id}`}>
+                  <Link
+                    key={product.id}
+                    href={`/tractor-parts/${activeCategory}/${product.id}`}
+                  >
                     <div className="product-card">
                       <img
                         src={`https://ajvamotors.com/upload/product/${product.p_thumbnail}`}

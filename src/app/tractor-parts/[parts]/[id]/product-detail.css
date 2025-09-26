@@ -154,15 +154,6 @@
 .tab-btn:hover {
   color: var(--primary-color);
 }
-
-.tab-pane {
-  display: none;
-}
-
-.tab-pane.active {
-  display: block;
-}
-
 .specs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

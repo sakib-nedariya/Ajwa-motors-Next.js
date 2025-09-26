@@ -1,23 +1,37 @@
 "use client";
 import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 import Parts from "@/components/crafting_parts/Parts";
-import React, { useEffect, useState, use } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./product-detail.css";
 
 const Page = ({ params }) => {
   const { id } = params;
   const [product, setProduct] = useState(null);
+  const [specs, setSpecs] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+  const [loadingSpecs, setLoadingSpecs] = useState(true);
+  const [activeTab, setActiveTab] = useState("description"); // tab state
 
+  // Fetch Product
   useEffect(() => {
     if (id) {
       axios
         .get(`https://ajvamotors.com/api/getProductById/${id}`)
         .then((res) => setProduct(res.data))
-        .catch((err) => console.error("Error:", err))
+        .catch((err) => console.error("Error product:", err))
         .finally(() => setLoading(false));
+    }
+  }, [id]);
+
+  // Fetch Specifications
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`https://ajvamotors.com/api/getProductSpecificationById/${id}`)
+        .then((res) => setSpecs(res.data || []))
+        .catch((err) => console.error("Error specs:", err))
+        .finally(() => setLoadingSpecs(false));
     }
   }, [id]);
 
@@ -55,7 +69,7 @@ const Page = ({ params }) => {
             <div className="features mb-30">
               <p
                 dangerouslySetInnerHTML={{
-                  __html: product.p_short_desc || "No description available.",
+                  __html: product.p_short_desc || "Description not available.",
                 }}
               ></p>
             </div>
@@ -69,45 +83,56 @@ const Page = ({ params }) => {
         </div>
       </div>
 
+      {/* Tabs */}
       <div className="tabs container section-spacing">
         <div className="tab-buttons mb-30">
-          <button className="tab-btn active" data-tab="description">
+          <button
+            className={`tab-btn ${activeTab === "description" ? "active" : ""}`}
+            onClick={() => setActiveTab("description")}
+          >
             Description
           </button>
-          <button className="tab-btn" data-tab="specs">
+          <button
+            className={`tab-btn ${activeTab === "specs" ? "active" : ""}`}
+            onClick={() => setActiveTab("specs")}
+          >
             Specifications
           </button>
         </div>
 
         <div className="tab-content">
-          <div
-            className="mb-30"
-            dangerouslySetInnerHTML={{
-              __html:
-                product.p_long_desc || "No detailed description available.",
-            }}
-          />
+          <h3 className="mb-20">
+            {activeTab === "description"
+              ? "Product Description"
+              : "Specifications"}
+          </h3>
 
-          <div id="specs" className="tab-pane">
-            <h3 className="mb-20">Technical Specifications</h3>
-            <div className="specs-grid">
-              <div className="spec-item">
-                <strong className="mb-10">Brand:</strong> {product.brand_name}
-              </div>
-              <div className="spec-item">
-                <strong className="mb-10">Category ID:</strong>{" "}
-                {product.p_category_id}
-              </div>
-              <div className="spec-item">
-                <strong className="mb-10">OEM:</strong>{" "}
-                {product.oem_value || "N/A"}
-              </div>
-              <div className="spec-item">
-                <strong className="mb-10">Suitable For:</strong>{" "}
-                {product.suitable_value || "N/A"}
-              </div>
+          {activeTab === "description" && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: product.p_long_desc || "Description not available.",
+              }}
+            />
+          )}
+
+          {activeTab === "specs" && (
+            <div id="specs" className="tab-pane">
+              {loadingSpecs ? (
+                <p>Loading specifications...</p>
+              ) : specs.length > 0 ? (
+                <div className="specs-grid">
+                  {specs.map((item, index) => (
+                    <div className="spec-item" key={index}>
+                      <strong className="mb-10">{item.specification}:</strong>{" "}
+                      {item.specification_value || "N/A"}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p>Specifications not available.</p>
+              )}
             </div>
-          </div>
+          )}
         </div>
       </div>
 
