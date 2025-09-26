@@ -1,5 +1,6 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./home.css";
 import "./globals.css";
 import Slider from "@/components/slider/Slider";
@@ -7,6 +8,41 @@ import Features from "@/components/key_features/Features";
 import Parts from "@/components/crafting_parts/Parts";
 
 const page = () => {
+  const [activeTab, setActiveTab] = useState("tractor"); // tractor | truck
+  const [tractorData, setTractorData] = useState([]);
+  const [truckData, setTruckData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+
+        const resTractor = await fetch(
+          "https://ajvamotors.com/api/getCategoryBySubCategory/28"
+        );
+        const tractorJson = await resTractor.json();
+        setTractorData(tractorJson);
+
+        const resTruck = await fetch(
+          "https://ajvamotors.com/api/getCategoryBySubCategory/29"
+        );
+        const truckJson = await resTruck.json();
+        setTruckData(truckJson);
+
+        setLoading(false);
+      } catch (error) {
+        console.error("API Error:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const currentData =
+    activeTab === "tractor" ? tractorData.slice(0, 4) : truckData.slice(0, 4);
+
   return (
     <>
       {/*hero section */}
@@ -34,7 +70,6 @@ const page = () => {
       <Slider />
 
       {/* about us section */}
-
       <section className="container flex-row about-us-section section-spacing">
         <div className="about-image">
           <img src="/images/about-us-image.png" alt="image" />
@@ -60,51 +95,67 @@ const page = () => {
       </section>
 
       {/*  product section */}
-
       <section className="product-section section-spacing">
         <div className="container">
           <div className="flex-row mb-40">
             <div className="product-intro">
-              <h3 className="mb-10">Tractor Parts</h3>
+              <h3 className="mb-10">
+                {activeTab === "tractor" ? "Tractor Parts" : "Truck Parts"}
+              </h3>
               <p>Discover excellence in every component we craft.</p>
             </div>
             <div className="product-tabs">
-              <Link href="#" className="active">Tractor Parts</Link>
+              <Link
+                href="#"
+                className={activeTab === "tractor" ? "active" : ""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveTab("tractor");
+                }}
+              >
+                Tractor Parts
+              </Link>
               <span>|</span>
-              <Link href="#">Truck Parts</Link>
+              <Link
+                href="#"
+                className={activeTab === "truck" ? "active" : ""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveTab("truck");
+                }}
+              >
+                Truck Parts
+              </Link>
             </div>
           </div>
-          <div className="tractor-models text-center">
-            <div>
-              <img className="mb-20" src="/images/swaraj-tractor.png" alt="" />
-              <h4>Swaraj Tractor</h4>
+
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <div className="tractor-models text-center">
+              {currentData.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/${
+                    activeTab === "tractor" ? "tractor-parts" : "truck-parts"
+                  }/${item.id}`}
+                >
+                  <div>
+                    <img
+                      className="mb-20"
+                      src={`https://ajvamotors.com/upload/category/${item.c_image}`}
+                      alt={item.c_name}
+                    />
+                    <h4>{item.c_name}</h4>
+                  </div>
+                </Link>
+              ))}
             </div>
-            <div>
-              <img className="mb-20" src="/images/eicher-tractor.png" alt="" />
-              <h4>Eicher Tractor</h4>
-            </div>
-            <div>
-              <img
-                className="mb-20"
-                src="/images/johndeere-tractor.png"
-                alt=""
-              />
-              <h4>John deer Tractor</h4>
-            </div>
-            <div>
-              <img
-                className="mb-20"
-                src="/images/mahindra-tractor.png"
-                alt=""
-              />
-              <h4>Mahindra Tractor</h4>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
       {/* brand highlight section  */}
-
       <section className="container-fluid brand-highlight">
         <div className="highlight-border">
           <div className="container">
@@ -128,15 +179,12 @@ const page = () => {
       </section>
 
       {/*  key features section  */}
-
       <Features />
 
       {/* cta section  */}
-
       <Parts />
 
       {/* gallery section */}
-
       <section className="container section-spacing">
         <div className="text-center">
           <h3 className="mb-20">Explore Our Craftsmanship</h3>
