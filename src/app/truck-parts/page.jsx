@@ -5,6 +5,7 @@ import "./truck-parts.css";
 import Link from "next/link";
 import Features from "@/components/key_features/Features";
 import Parts from "@/components/crafting_parts/Parts";
+import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 
 const Page = () => {
   const [brands, setBrands] = useState([]);
@@ -46,11 +47,18 @@ const Page = () => {
 
   const handleBrandSelect = (brandId) => {
     setSelectedBrand(brandId);
-    if (window.innerWidth <= 770) setSidebarOpen(false); 
+    if (window.innerWidth <= 770) setSidebarOpen(false);
   };
 
   return (
     <>
+      <BreadCrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Truck Parts", href: "/truck-parts", active: true },
+        ]}
+      />
+
       <section className="container section-spacing">
         <div className="catalog-section-heading mb-30">
           <h1 className="mb-10">Truck Parts Catalogue</h1>

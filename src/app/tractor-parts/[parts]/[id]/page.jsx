@@ -6,7 +6,7 @@ import "./product-detail.css";
 import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 
 const Page = ({ params }) => {
-  const { categoryId, id } = params;
+  const { parts, id } = params;
   const [product, setProduct] = useState(null);
   const [categoryName, setCategoryName] = useState("");
   const [specs, setSpecs] = useState([]);
@@ -28,10 +28,12 @@ const Page = ({ params }) => {
     axios
       .get("https://ajvamotors.com/api/getCategoryBySubCategory/28")
       .then((res) => {
-        const cat = res.data.find((c) => String(c.id) === String(categoryId));
-        if (cat) setCategoryName(cat.c_name);
+        const cat = res.data.find((c) => String(c.id) === String(parts));
+        if (cat) {
+          setCategoryName(cat.c_name);
+        }
       });
-  }, [id, categoryId]);
+  }, [id, parts]);
 
   if (loading) return <p className="container section-spacing">Loading...</p>;
   if (!product)
@@ -43,13 +45,17 @@ const Page = ({ params }) => {
         items={[
           { label: "Home", href: "/" },
           { label: "Tractor Parts", href: "/tractor-parts" },
-          { label: categoryName, href: `/tractor-parts/${categoryId}` },
-          { label: product.p_title, active: true },
+          { label: categoryName, href: `/tractor-parts/${parts}` },
+          {
+            label: product.p_title,
+            href: `/tractor-parts/${parts}/${id}`,
+          },
         ]}
       />
 
       <div className="container section-spacing">
         <div className="flex-row">
+          {/* Product Image */}
           <div className="product-image">
             <img
               className="mb-30"
@@ -67,6 +73,7 @@ const Page = ({ params }) => {
             </div>
           </div>
 
+          {/* Product Info */}
           <div className="product-info">
             <h1 className="mb-20">{product.p_title}</h1>
             <div className="price mb-20">{product.brand_name}</div>
@@ -128,7 +135,7 @@ const Page = ({ params }) => {
                 <div className="specs-grid">
                   {specs.map((item, index) => (
                     <div className="spec-item" key={index}>
-                      <strong className="mb-10">{item.specification}:</strong>{" "}
+                      <strong className="mb-10">{item.specification}:</strong>
                       {item.specification_value || "N/A"}
                     </div>
                   ))}

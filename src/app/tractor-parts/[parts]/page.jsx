@@ -16,7 +16,7 @@ const Page = ({ params }) => {
 
   const [selectedBrand, setSelectedBrand] = useState("all");
   const [activeCategory, setActiveCategory] = useState(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false); 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   useEffect(() => {
     axios
       .get("https://ajvamotors.com/api/getBrandsBySubCategory/28")

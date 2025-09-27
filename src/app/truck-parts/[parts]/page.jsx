@@ -5,6 +5,7 @@ import "../truck-parts.css";
 import Features from "@/components/key_features/Features";
 import Parts from "@/components/crafting_parts/Parts";
 import Link from "next/link";
+import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 
 const Page = ({ params }) => {
   const { parts: id } = params;
@@ -13,56 +14,31 @@ const Page = ({ params }) => {
   const [products, setProducts] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("all");
   const [activeCategory, setActiveCategory] = useState(id);
+  const [categoryName, setCategoryName] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    const getBrands = async () => {
-      try {
-        const res = await axios.get(
-          "https://ajvamotors.com/api/getBrandsBySubCategory/29"
-        );
-        setBrands(res.data);
-      } catch (err) {
-        console.error("Error fetching brands:", err);
-      }
-    };
-    getBrands();
-  }, []);
+    axios
+      .get("https://ajvamotors.com/api/getBrandsBySubCategory/29")
+      .then((res) => setBrands(res.data))
+      .catch((err) => console.error("Error fetching brands:", err));
 
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const res = await axios.get(
-          "https://ajvamotors.com/api/getCategoryBySubCategory/29"
-        );
+    axios
+      .get("https://ajvamotors.com/api/getCategoryBySubCategory/29")
+      .then((res) => {
         setCategories(res.data);
-      } catch (err) {
-        console.error("Error fetching categories:", err);
-      }
-    };
-    getCategories();
-  }, []);
-
-  useEffect(() => {
-    if (categories.length > 0) {
-      if (id) {
-        const selectedCat = categories.find((cat) => String(cat.id) === String(id));
-        if (selectedCat) {
-          setSelectedBrand(String(selectedCat.brand_id));
-          setActiveCategory(String(selectedCat.id));
-          fetchProductsByCategory(selectedCat.id);
-        } else {
-          setSelectedBrand("all");
-          setActiveCategory(String(categories[0].id));
-          fetchProductsByCategory(categories[0].id);
+        if (id) {
+          const selectedCat = res.data.find((cat) => String(cat.id) === String(id));
+          if (selectedCat) {
+            setSelectedBrand(String(selectedCat.brand_id));
+            setActiveCategory(String(selectedCat.id));
+            setCategoryName(selectedCat.c_name);
+            fetchProductsByCategory(selectedCat.id);
+          }
         }
-      } else {
-        setSelectedBrand("all");
-        setActiveCategory(String(categories[0].id));
-        fetchProductsByCategory(categories[0].id);
-      }
-    }
-  }, [id, categories]);
+      })
+      .catch((err) => console.error("Error fetching categories:", err));
+  }, [id]);
 
   const fetchProductsByCategory = async (catId) => {
     try {
@@ -82,52 +58,49 @@ const Page = ({ params }) => {
       : categories.filter((cat) => String(cat.brand_id) === String(selectedBrand));
 
   const handleCategoryClick = (catId) => {
+    setActiveCategory(String(catId));
+    fetchProductsByCategory(catId);
     const cat = categories.find((c) => String(c.id) === String(catId));
-    if (!cat) return;
-
-    const brandCategories = categories.filter(
-      (c) => String(c.brand_id) === String(cat.brand_id)
-    );
-
-    if (brandCategories.length > 0) {
-      setSelectedBrand(String(cat.brand_id));
-      setActiveCategory(String(brandCategories[0].id));
-      fetchProductsByCategory(brandCategories[0].id);
-    }
-
-    if (window.innerWidth <= 770) setSidebarOpen(false);
+    if (cat) setCategoryName(cat.c_name);
   };
 
   const handleBrandSelect = (brandId) => {
     setSelectedBrand(brandId);
-
     if (brandId === "all") {
       if (categories.length > 0) {
         setActiveCategory(String(categories[0].id));
+        setCategoryName(categories[0].c_name);
         fetchProductsByCategory(categories[0].id);
       }
     } else {
       const filtered = categories.filter((cat) => String(cat.brand_id) === String(brandId));
       if (filtered.length > 0) {
         setActiveCategory(String(filtered[0].id));
+        setCategoryName(filtered[0].c_name);
         fetchProductsByCategory(filtered[0].id);
       } else {
         setActiveCategory(null);
+        setCategoryName("");
         setProducts([]);
       }
     }
-
     if (window.innerWidth <= 770) setSidebarOpen(false);
   };
 
   return (
     <>
+      <BreadCrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Truck Parts", href: "/truck-parts" },
+          { label: categoryName, href: `/truck-parts/${activeCategory}`, active: true },
+        ]}
+      />
+
       <section className="container section-spacing">
         <div className="catalog-section-heading mb-30">
           <h1 className="mb-10">Truck Parts</h1>
-          <p>
-            Discover our premium selection of Truck Parts components – quality and reliability you can depend on.
-          </p>
+          <p>Discover our premium selection of Truck Parts – quality and reliability you can depend on.</p>
         </div>
 
         <div className="main-content">
@@ -199,10 +172,7 @@ const Page = ({ params }) => {
             <div className="products-grid mb-30">
               {products.length > 0 ? (
                 products.map((product) => (
-                  <Link
-                    key={product.id}
-                    href={`/truck-parts/${activeCategory}/${product.id}`}
-                  >
+                  <Link key={product.id} href={`/truck-parts/${activeCategory}/${product.id}`}>
                     <div className="product-card">
                       <img
                         src={`https://ajvamotors.com/upload/product/${product.p_thumbnail}`}

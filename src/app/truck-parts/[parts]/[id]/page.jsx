@@ -3,14 +3,16 @@ import Parts from "@/components/crafting_parts/Parts";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./product-detail.css";
+import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 
 const Page = ({ params }) => {
-  const { id } = params;
+  const { parts, id } = params;
   const [product, setProduct] = useState(null);
   const [specs, setSpecs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingSpecs, setLoadingSpecs] = useState(true);
-  const [activeTab, setActiveTab] = useState("description"); 
+  const [activeTab, setActiveTab] = useState("description");
+  const [categoryName, setCategoryName] = useState("");
 
   useEffect(() => {
     if (id) {
@@ -19,18 +21,21 @@ const Page = ({ params }) => {
         .then((res) => setProduct(res.data))
         .catch((err) => console.error("Error product:", err))
         .finally(() => setLoading(false));
-    }
-  }, [id]);
 
-  useEffect(() => {
-    if (id) {
       axios
         .get(`https://ajvamotors.com/api/getProductSpecificationById/${id}`)
         .then((res) => setSpecs(res.data || []))
         .catch((err) => console.error("Error specs:", err))
         .finally(() => setLoadingSpecs(false));
     }
-  }, [id]);
+
+    axios
+      .get("https://ajvamotors.com/api/getCategoryBySubCategory/29")
+      .then((res) => {
+        const cat = res.data.find((c) => String(c.id) === String(parts));
+        if (cat) setCategoryName(cat.c_name);
+      });
+  }, [id, parts]);
 
   if (loading) return <p className="container section-spacing">Loading...</p>;
   if (!product)
@@ -38,6 +43,14 @@ const Page = ({ params }) => {
 
   return (
     <>
+      <BreadCrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Truck Parts", href: "/truck-parts" },
+          { label: categoryName, href: `/truck-parts/${parts}` },
+          { label: product.p_title, href: `/truck-parts/${parts}/${id}`, active: true },
+        ]}
+      />
 
       <div className="container section-spacing">
         <div className="flex-row">
@@ -97,9 +110,7 @@ const Page = ({ params }) => {
 
         <div className="tab-content">
           <h3 className="mb-20">
-            {activeTab === "description"
-              ? "Product Description"
-              : "Specifications"}
+            {activeTab === "description" ? "Product Description" : "Specifications"}
           </h3>
 
           {activeTab === "description" && (
