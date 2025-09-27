@@ -1,11 +1,9 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../truck-parts.css";
 import Features from "@/components/key_features/Features";
 import Parts from "@/components/crafting_parts/Parts";
-import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 import Link from "next/link";
 
 const Page = ({ params }) => {
@@ -15,6 +13,7 @@ const Page = ({ params }) => {
   const [products, setProducts] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("all");
   const [activeCategory, setActiveCategory] = useState(id);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const getBrands = async () => {
@@ -51,7 +50,7 @@ const Page = ({ params }) => {
         if (selectedCat) {
           setSelectedBrand(String(selectedCat.brand_id));
           setActiveCategory(String(selectedCat.id));
-          fetchProductsByCategory(selectedCat.id); 
+          fetchProductsByCategory(selectedCat.id);
         } else {
           setSelectedBrand("all");
           setActiveCategory(String(categories[0].id));
@@ -83,40 +82,71 @@ const Page = ({ params }) => {
       : categories.filter((cat) => String(cat.brand_id) === String(selectedBrand));
 
   const handleCategoryClick = (catId) => {
-    setActiveCategory(String(catId));
-    fetchProductsByCategory(catId);
+    const cat = categories.find((c) => String(c.id) === String(catId));
+    if (!cat) return;
+
+    const brandCategories = categories.filter(
+      (c) => String(c.brand_id) === String(cat.brand_id)
+    );
+
+    if (brandCategories.length > 0) {
+      setSelectedBrand(String(cat.brand_id));
+      setActiveCategory(String(brandCategories[0].id));
+      fetchProductsByCategory(brandCategories[0].id);
+    }
+
+    if (window.innerWidth <= 770) setSidebarOpen(false);
+  };
+
+  const handleBrandSelect = (brandId) => {
+    setSelectedBrand(brandId);
+
+    if (brandId === "all") {
+      if (categories.length > 0) {
+        setActiveCategory(String(categories[0].id));
+        fetchProductsByCategory(categories[0].id);
+      }
+    } else {
+      const filtered = categories.filter((cat) => String(cat.brand_id) === String(brandId));
+      if (filtered.length > 0) {
+        setActiveCategory(String(filtered[0].id));
+        fetchProductsByCategory(filtered[0].id);
+      } else {
+        setActiveCategory(null);
+        setProducts([]);
+      }
+    }
+
+    if (window.innerWidth <= 770) setSidebarOpen(false);
   };
 
   return (
     <>
-      <BreadCrumb />
-
       <section className="container section-spacing">
-        <div className="catalog-section-heading mb-60">
-          <h1 className="mb-10">Products Catalogue</h1>
-          <p>Browse spare parts by brand or view all products below.</p>
+        <div className="catalog-section-heading mb-30">
+          <h1 className="mb-10">Truck Parts</h1>
+          <p>
+            Discover our premium selection of Truck Parts components – quality and reliability you can depend on.
+          </p>
         </div>
 
         <div className="main-content">
           <aside className="sidebar">
-            <h4 className="filter-toggle">
+            <h4
+              className="filter-toggle"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+            >
               Select Truck Brand
-              <i className="fa-solid fa-caret-down"></i>
+              <i className={`fa-solid fa-caret-${sidebarOpen ? "up" : "down"}`}></i>
             </h4>
 
-            <div className="brand-list">
+            <div className={`brand-list ${sidebarOpen ? "active" : ""}`}>
               <div className="brand-item mb-10">
                 <input
                   type="checkbox"
                   id="all"
                   checked={selectedBrand === "all"}
-                  onChange={() => {
-                    setSelectedBrand("all");
-                    if (categories.length > 0) {
-                      setActiveCategory(String(categories[0].id));
-                      fetchProductsByCategory(categories[0].id);
-                    }
-                  }}
+                  onChange={() => handleBrandSelect("all")}
                 />
                 <label htmlFor="all">All</label>
               </div>
@@ -127,19 +157,7 @@ const Page = ({ params }) => {
                     type="checkbox"
                     id={`brand-${brand.id}`}
                     checked={selectedBrand === String(brand.id)}
-                    onChange={() => {
-                      setSelectedBrand(String(brand.id));
-                      const filtered = categories.filter(
-                        (cat) => String(cat.brand_id) === String(brand.id)
-                      );
-                      if (filtered.length > 0) {
-                        setActiveCategory(String(filtered[0].id));
-                        fetchProductsByCategory(filtered[0].id);
-                      } else {
-                        setActiveCategory(null);
-                        setProducts([]);
-                      }
-                    }}
+                    onChange={() => handleBrandSelect(String(brand.id))}
                   />
                   <label htmlFor={`brand-${brand.id}`}>{brand.b_name}</label>
                   <img
@@ -160,9 +178,7 @@ const Page = ({ params }) => {
                     filteredCategories.map((cat) => (
                       <div
                         key={cat.id}
-                        className={`category-card ${
-                          activeCategory === String(cat.id) ? "active" : ""
-                        }`}
+                        className={`category-card ${activeCategory === String(cat.id) ? "active" : ""}`}
                         onClick={() => handleCategoryClick(cat.id)}
                       >
                         <img
@@ -170,7 +186,7 @@ const Page = ({ params }) => {
                           src={`https://ajvamotors.com/upload/category/${cat.c_image}`}
                           alt={cat.c_name}
                         />
-                        <Link href="#">{cat.c_name}</Link>
+                        <p>{cat.c_name}</p>
                       </div>
                     ))
                   ) : (
@@ -197,7 +213,7 @@ const Page = ({ params }) => {
                   </Link>
                 ))
               ) : (
-                <p>No products found for this modal.</p>
+                <p>No products found for this brand.</p>
               )}
             </div>
           </div>

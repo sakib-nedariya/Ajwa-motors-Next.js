@@ -1,39 +1,37 @@
 "use client";
-import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 import Parts from "@/components/crafting_parts/Parts";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./product-detail.css";
+import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 
 const Page = ({ params }) => {
-  const { id } = params;
+  const { categoryId, id } = params;
   const [product, setProduct] = useState(null);
+  const [categoryName, setCategoryName] = useState("");
   const [specs, setSpecs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingSpecs, setLoadingSpecs] = useState(true);
-  const [activeTab, setActiveTab] = useState("description"); // tab state
+  const [activeTab, setActiveTab] = useState("description");
 
-  // Fetch Product
   useEffect(() => {
-    if (id) {
-      axios
-        .get(`https://ajvamotors.com/api/getProductById/${id}`)
-        .then((res) => setProduct(res.data))
-        .catch((err) => console.error("Error product:", err))
-        .finally(() => setLoading(false));
-    }
-  }, [id]);
+    axios
+      .get(`https://ajvamotors.com/api/getProductById/${id}`)
+      .then((res) => setProduct(res.data))
+      .finally(() => setLoading(false));
 
-  // Fetch Specifications
-  useEffect(() => {
-    if (id) {
-      axios
-        .get(`https://ajvamotors.com/api/getProductSpecificationById/${id}`)
-        .then((res) => setSpecs(res.data || []))
-        .catch((err) => console.error("Error specs:", err))
-        .finally(() => setLoadingSpecs(false));
-    }
-  }, [id]);
+    axios
+      .get(`https://ajvamotors.com/api/getProductSpecificationById/${id}`)
+      .then((res) => setSpecs(res.data || []))
+      .finally(() => setLoadingSpecs(false));
+
+    axios
+      .get("https://ajvamotors.com/api/getCategoryBySubCategory/28")
+      .then((res) => {
+        const cat = res.data.find((c) => String(c.id) === String(categoryId));
+        if (cat) setCategoryName(cat.c_name);
+      });
+  }, [id, categoryId]);
 
   if (loading) return <p className="container section-spacing">Loading...</p>;
   if (!product)
@@ -41,9 +39,16 @@ const Page = ({ params }) => {
 
   return (
     <>
-      <BreadCrumb />
+      <BreadCrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Tractor Parts", href: "/tractor-parts" },
+          { label: categoryName, href: `/tractor-parts/${categoryId}` },
+          { label: product.p_title, active: true },
+        ]}
+      />
 
-      <div className="product-section container section-spacing">
+      <div className="container section-spacing">
         <div className="flex-row">
           <div className="product-image">
             <img

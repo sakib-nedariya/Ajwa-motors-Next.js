@@ -1,69 +1,55 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../tractor-parts.css";
 import Features from "@/components/key_features/Features";
 import Parts from "@/components/crafting_parts/Parts";
-import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 import Link from "next/link";
+import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 
 const Page = ({ params }) => {
-  const { parts: id } = params;
+  const id = params?.parts;
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
+
   const [selectedBrand, setSelectedBrand] = useState("all");
-  const [activeCategory, setActiveCategory] = useState(id);
-
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false); 
   useEffect(() => {
-    const getBrands = async () => {
-      try {
-        const res = await axios.get(
-          "https://ajvamotors.com/api/getBrandsBySubCategory/28"
-        );
-        setBrands(res.data);
-      } catch (err) {
-        console.error("Error fetching brands:", err);
-      }
-    };
-    getBrands();
-  }, []);
+    axios
+      .get("https://ajvamotors.com/api/getBrandsBySubCategory/28")
+      .then((res) => setBrands(res.data))
+      .catch((err) => console.error("Error fetching brands:", err));
 
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const res = await axios.get(
-          "https://ajvamotors.com/api/getCategoryBySubCategory/28"
-        );
+    axios
+      .get("https://ajvamotors.com/api/getCategoryBySubCategory/28")
+      .then((res) => {
         setCategories(res.data);
-      } catch (err) {
-        console.error("Error fetching categories:", err);
-      }
-    };
-    getCategories();
-  }, []);
 
-  useEffect(() => {
-    if (categories.length > 0) {
-      if (id) {
-        const selectedCat = categories.find((cat) => String(cat.id) === String(id));
+        const selectedCat = res.data.find(
+          (cat) => String(cat.id) === String(id)
+        );
+
         if (selectedCat) {
+          setCategoryName(selectedCat.c_name);
           setSelectedBrand(String(selectedCat.brand_id));
           setActiveCategory(String(selectedCat.id));
-          fetchProductsByCategory(selectedCat.id); // Fetch products for the URL category
-        } else {
-          setSelectedBrand("all");
-          setActiveCategory(String(categories[0].id));
-          fetchProductsByCategory(categories[0].id); // Fetch products for the first category
+          fetchProductsByCategory(selectedCat.id);
         }
-      } else {
-        setSelectedBrand("all");
-        setActiveCategory(String(categories[0].id));
-        fetchProductsByCategory(categories[0].id); // Fetch products for the first category
-      }
+      })
+      .catch((err) => console.error("Error fetching categories:", err));
+  }, [id]);
+
+  useEffect(() => {
+    if (activeCategory && categories.length > 0) {
+      const activeCat = categories.find(
+        (cat) => String(cat.id) === String(activeCategory)
+      );
+      if (activeCat) setCategoryName(activeCat.c_name);
     }
-  }, [id, categories]);
+  }, [activeCategory, categories]);
 
   const fetchProductsByCategory = async (catId) => {
     try {
@@ -80,43 +66,82 @@ const Page = ({ params }) => {
   const filteredCategories =
     selectedBrand === "all"
       ? categories
-      : categories.filter((cat) => String(cat.brand_id) === String(selectedBrand));
+      : categories.filter(
+          (cat) => String(cat.brand_id) === String(selectedBrand)
+        );
 
   const handleCategoryClick = (catId) => {
     setActiveCategory(String(catId));
     fetchProductsByCategory(catId);
   };
 
+  const handleBrandSelect = (brandId) => {
+    setSelectedBrand(brandId);
+    if (window.innerWidth <= 770) {
+      setSidebarOpen(false);
+    }
+
+    if (brandId === "all") {
+      if (categories.length > 0) {
+        setActiveCategory(String(categories[0].id));
+        fetchProductsByCategory(categories[0].id);
+      }
+    } else {
+      const filtered = categories.filter(
+        (cat) => String(cat.brand_id) === String(brandId)
+      );
+      if (filtered.length > 0) {
+        setActiveCategory(String(filtered[0].id));
+        fetchProductsByCategory(filtered[0].id);
+      } else {
+        setActiveCategory(null);
+        setProducts([]);
+      }
+    }
+  };
+
   return (
     <>
-      <BreadCrumb />
+      <BreadCrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Tractor Parts", href: "/tractor-parts" },
+          {
+            label: categoryName,
+            href: `/tractor-parts/${activeCategory}`,
+            active: true,
+          },
+        ]}
+      />
 
       <section className="container section-spacing">
-        <div className="catalog-section-heading mb-60">
-          <h1 className="mb-10">Products Catalogue</h1>
-          <p>Browse spare parts by brand or view all products below.</p>
+        <div className="catalog-section-heading mb-30">
+          <h1 className="mb-10">Tractor Parts</h1>
+          <p>
+            Discover our premium selection of Tractor Parts components – quality
+            and reliability you can depend on.
+          </p>
         </div>
 
         <div className="main-content">
           <aside className="sidebar">
-            <h4 className="filter-toggle">
+            <h4
+              className="filter-toggle"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+            >
               Select Tractor Brand
-              <i className="fa-solid fa-caret-down"></i>
+              <i
+                className={`fa-solid fa-caret-${sidebarOpen ? "up" : "down"}`}
+              ></i>
             </h4>
 
-            <div className="brand-list">
+            <div className={`brand-list ${sidebarOpen ? "active" : ""}`}>
               <div className="brand-item mb-10">
                 <input
                   type="checkbox"
                   id="all"
                   checked={selectedBrand === "all"}
-                  onChange={() => {
-                    setSelectedBrand("all");
-                    if (categories.length > 0) {
-                      setActiveCategory(String(categories[0].id));
-                      fetchProductsByCategory(categories[0].id);
-                    }
-                  }}
+                  onChange={() => handleBrandSelect("all")}
                 />
                 <label htmlFor="all">All</label>
               </div>
@@ -127,19 +152,7 @@ const Page = ({ params }) => {
                     type="checkbox"
                     id={`brand-${brand.id}`}
                     checked={selectedBrand === String(brand.id)}
-                    onChange={() => {
-                      setSelectedBrand(String(brand.id));
-                      const filtered = categories.filter(
-                        (cat) => String(cat.brand_id) === String(brand.id)
-                      );
-                      if (filtered.length > 0) {
-                        setActiveCategory(String(filtered[0].id));
-                        fetchProductsByCategory(filtered[0].id);
-                      } else {
-                        setActiveCategory(null);
-                        setProducts([]);
-                      }
-                    }}
+                    onChange={() => handleBrandSelect(String(brand.id))}
                   />
                   <label htmlFor={`brand-${brand.id}`}>{brand.b_name}</label>
                   <img

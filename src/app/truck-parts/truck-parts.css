@@ -320,6 +320,16 @@
     gap: 20px;
   }
 
+  .filter-toggle {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+  }
+
   .filter-toggle i {
     display: inline-block;
     font-size: 18px;
@@ -353,7 +363,7 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 426px) {
   /* breadcrumb */
   .breadcrumb-section {
     padding: 10px 5%;

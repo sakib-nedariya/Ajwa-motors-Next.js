@@ -1,5 +1,4 @@
 "use client";
-import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
 import Parts from "@/components/crafting_parts/Parts";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -39,9 +38,8 @@ const Page = ({ params }) => {
 
   return (
     <>
-      <BreadCrumb />
 
-      <div className="product-section container section-spacing">
+      <div className="container section-spacing">
         <div className="flex-row">
           <div className="product-image">
             <img

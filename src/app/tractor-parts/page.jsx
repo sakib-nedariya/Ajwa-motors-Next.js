@@ -2,41 +2,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./tractor-parts.css";
-import Link from "next/link";
 import Features from "@/components/key_features/Features";
 import Parts from "@/components/crafting_parts/Parts";
 import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
+import Link from "next/link";
 
 const Page = () => {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("all");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    const getBrands = async () => {
-      try {
-        const res = await axios.get(
-          "https://ajvamotors.com/api/getBrandsBySubCategory/28"
-        );
-        setBrands(res.data);
-      } catch (err) {
-        console.error("Error fetching brands:", err);
-      }
-    };
+    axios
+      .get("https://ajvamotors.com/api/getBrandsBySubCategory/28")
+      .then((res) => setBrands(res.data));
 
-    const getCategories = async () => {
-      try {
-        const res = await axios.get(
-          "https://ajvamotors.com/api/getCategoryBySubCategory/28"
-        );
-        setCategories(res.data);
-      } catch (err) {
-        console.error("Error fetching categories:", err);
-      }
-    };
-
-    getBrands();
-    getCategories();
+    axios
+      .get("https://ajvamotors.com/api/getCategoryBySubCategory/28")
+      .then((res) => setCategories(res.data));
   }, []);
 
   const filteredCategories =
@@ -44,12 +28,24 @@ const Page = () => {
       ? categories
       : categories.filter((cat) => String(cat.brand_id) === selectedBrand);
 
+  const handleBrandSelect = (brandId) => {
+    setSelectedBrand(brandId);
+    if (window.innerWidth <= 770) {
+      setSidebarOpen(false);
+    }
+  };
+
   return (
     <>
-      <BreadCrumb />
+      <BreadCrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Tractor Parts", href: "/tractor-parts", active: true },
+        ]}
+      />
 
       <section className="container section-spacing">
-        <div className="catalog-section-heading mb-60">
+        <div className="catalog-section-heading mb-30">
           <h1 className="mb-10">Tractor Parts Catalogue</h1>
           <p>
             Discover our premium selection of tractor components – quality and
@@ -59,18 +55,25 @@ const Page = () => {
 
         <div className="main-content">
           <aside className="sidebar">
-            <h4 className="filter-toggle">
+            <h4
+              className="filter-toggle"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+            >
               Select Tractor Brand
-              <i className="fa-solid fa-caret-down"></i>
+              <i
+                className={`fa-solid fa-caret-${
+                  sidebarOpen ? "up" : "down"
+                }`}
+              ></i>
             </h4>
 
-            <div className="brand-list">
+            <div className={`brand-list ${sidebarOpen ? "active" : ""}`}>
               <div className="brand-item mb-10">
                 <input
                   type="checkbox"
                   id="all"
                   checked={selectedBrand === "all"}
-                  onChange={() => setSelectedBrand("all")}
+                  onChange={() => handleBrandSelect("all")}
                 />
                 <label htmlFor="all">All</label>
               </div>
@@ -81,7 +84,7 @@ const Page = () => {
                     type="checkbox"
                     id={`brand-${brand.id}`}
                     checked={selectedBrand === String(brand.id)}
-                    onChange={() => setSelectedBrand(String(brand.id))}
+                    onChange={() => handleBrandSelect(String(brand.id))}
                   />
                   <label htmlFor={`brand-${brand.id}`}>{brand.b_name}</label>
                   <img

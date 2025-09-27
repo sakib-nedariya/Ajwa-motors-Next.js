@@ -1,6 +1,4 @@
 "use client"
-import BreadCrumb from "@/components/breadcrumb/BreadCrumb";
-import Navbar from "@/components/navbar/Navbar";
 import React from "react";
 import "./product-detail.css";
 import Parts from "@/components/crafting_parts/Parts";
@@ -8,7 +6,6 @@ import Parts from "@/components/crafting_parts/Parts";
 const page = () => {
   return (
     <>
-      <BreadCrumb />
 
       <div className="product-section container section-spacing">
         <div className="flex-row">
