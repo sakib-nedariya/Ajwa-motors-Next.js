@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import "../../components/footer/footer.css"
+import "../../components/footer/footer.css";
 
 const Footer = () => {
   return (
@@ -89,14 +89,28 @@ const Footer = () => {
             <br />
             State Highway, Nr. Teniwada Bridge, Behind Sirtaj Namkeen
             <br />
-            At: Kotadi, Post : Chhapi, Ta : Vadgam Dist : Banaskantha , Gujarat - India
-            , 385210
+            At: Kotadi, Post : Chhapi, Ta : Vadgam Dist : Banaskantha , Gujarat
+            - India , 385210
           </p>
           <p className="mb-10">
-            <strong>Phone:</strong> +91 992-548-9951
+            <strong>Phone:</strong>
+            <Link
+              href="tel:+919925489951"
+              style={{ color: "white", fontWeight: "normal" }}
+            >
+              {" "}
+              +91 992-548-9951
+            </Link>
           </p>
           <p>
-            <strong>Email:</strong> ajvamotors@yahoo.in
+            <strong>Email:</strong>
+            <Link
+              href="mailto:ajvamotors@yahoo.in"
+              style={{ color: "white", fontWeight: "normal" }}
+            >
+              {" "}
+              ajvamotors@yahoo.in
+            </Link>
           </p>
         </div>
       </div>
