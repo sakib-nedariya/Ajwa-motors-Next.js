@@ -48,7 +48,11 @@ const Page = ({ params }) => {
           { label: "Home", href: "/" },
           { label: "Truck Parts", href: "/truck-parts" },
           { label: categoryName, href: `/truck-parts/${parts}` },
-          { label: product.p_title, href: `/truck-parts/${parts}/${id}`, active: true },
+          {
+            label: product.p_title,
+            href: `/truck-parts/${parts}/${id}`,
+            active: true,
+          },
         ]}
       />
 
@@ -110,17 +114,57 @@ const Page = ({ params }) => {
 
         <div className="tab-content">
           <h3 className="mb-20">
-            {activeTab === "description" ? "Product Description" : "Specifications"}
+            {activeTab === "description"
+              ? "Product Description"
+              : "Specifications"}
           </h3>
 
+          {/* =================== DESCRIPTION TAB =================== */}
           {activeTab === "description" && (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: product.p_long_desc || "Description not available.",
-              }}
-            />
+            <div id="description" className="tab-pane">
+              {/* Product description */}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: product?.p_long_desc || "Description not available.",
+                }}
+              />
+
+              {/* Suitable For Make/Model */}
+              {product?.suitable_key && product?.suitable_value && (
+                <div style={{ margin: "40px 0" }}>
+                  <h2 className="mb-20">Suitable For Make/Model</h2>
+                  <div className="specs-grid">
+                    <div className="spec-item">
+                      {/* Here I split CSV into list items */}
+                      {product.suitable_value.split(",").map((val, idx) => (
+                        <div key={idx}>
+                          <strong className="mb-10">{val.trim()}</strong>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* OEM Part Numbers */}
+              {product?.oem_key && product?.oem_value && (
+                <div style={{ margin: "40px 0" }}>
+                  <h2 className="mb-20">OEM Part Numbers</h2>
+                  <div className="specs-grid">
+                    <div className="spec-item">
+                      {product.oem_value.split(",").map((oem, idx) => (
+                        <div key={idx}>
+                          <strong className="mb-10">{oem.trim()}</strong>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
 
+          {/* =================== SPECIFICATIONS TAB =================== */}
           {activeTab === "specs" && (
             <div id="specs" className="tab-pane">
               {loadingSpecs ? (

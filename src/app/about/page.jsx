@@ -36,7 +36,7 @@ const About = () => {
       {/* info section */}
 
       <section className="info-section container section-spacing">
-        <div className="flex-row mb-40">
+        <div className="flex-row mb-40" style={{alignItems:"normal"}}>
           <div className="info-box">
             <h4 className="mb-10">Our Vision & Mission</h4>
             <p className="mb-20 short-title-info">

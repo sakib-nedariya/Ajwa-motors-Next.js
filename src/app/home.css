@@ -238,6 +238,9 @@
   .bharatbenz-brand {
     max-width: 500px;
   }
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 770px) {
@@ -295,7 +298,7 @@
     line-height: 36px;
   }
 
-  .cta-section button{
+  .cta-section button {
     white-space: nowrap !important;
     margin-top: 20px;
     width: fit-content;

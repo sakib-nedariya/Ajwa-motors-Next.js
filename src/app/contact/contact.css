@@ -84,18 +84,6 @@
   box-shadow: 0px 10px 40px 0px #07183212;
 }
 
-/* cta section */
-
-.container-fluid.cta-section {
-  background-color: var(--primary-color);
-}
-
-.cta-section h3 {
-  font-size: 32px;
-  line-height: 42px;
-  color: var(--color-white);
-}
-
 /* responsive css */
 
 @media (max-width: 1050px) {
@@ -116,18 +104,6 @@
   }
   .form-container {
     width: 100%;
-  }
-
-  /* cta section */
-  .cta-section .flex-row {
-    flex-direction: row;
-  }
-  .cta-section h3 {
-    font-size: 26px;
-    line-height: 36px;
-  }
-  .cta-section button {
-    white-space: nowrap;
   }
 }
 
@@ -152,19 +128,5 @@
   }
   .form-container h4 {
     font-size: 18px;
-  }
-
-  /* cta section */
-  .cta-section .flex-row {
-    flex-direction: column;
-    align-items: unset;
-  }
-  .cta-section h3 {
-    font-size: 22px;
-    line-height: 32px;
-  }
-  .cta-section button {
-    margin-top: 20px;
-    width: fit-content;
   }
 }

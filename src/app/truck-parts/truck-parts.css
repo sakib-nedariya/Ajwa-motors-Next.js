@@ -263,18 +263,6 @@
   border-color: var(--secondary-color);
 }
 
-/* cta section */
-
-.container-fluid.cta-section {
-  background-color: var(--primary-color);
-}
-
-.cta-section h3 {
-  font-size: 32px;
-  line-height: 42px;
-  color: var(--color-white);
-}
-
 /* key features section */
 
 .container-fluid.features-section {
@@ -348,15 +336,6 @@
     gap: 20px;
   }
 
-  /* cta section */
-  .cta-section .flex-row {
-    flex-direction: row;
-  }
-  .cta-section h3 {
-    font-size: 26px;
-    line-height: 36px;
-  }
-
   /* key features section */
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -379,16 +358,6 @@
   }
   .products-grid {
     grid-template-columns: 1fr;
-  }
-
-  /* cta section */
-  .cta-section .flex-row {
-    flex-direction: column;
-    align-items: unset;
-  }
-  .cta-section h3 {
-    font-size: 22px;
-    line-height: 32px;
   }
 
   /* key features section */

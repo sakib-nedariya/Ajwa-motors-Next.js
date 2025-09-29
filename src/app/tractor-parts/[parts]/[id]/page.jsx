@@ -120,11 +120,37 @@ const Page = ({ params }) => {
           </h3>
 
           {activeTab === "description" && (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: product.p_long_desc || "Description not available.",
-              }}
-            />
+            <div id="description" className="tab-pane">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: product?.p_long_desc || "Description not available.",
+                }}
+              />
+
+              {product?.suitable_key && product?.suitable_value && (
+                <div style={{ margin: "40px 0" }}>
+                  <h2 className="mb-20">Suitable For Make/Model</h2>
+                  <div className="specs-grid">
+                    <div className="spec-item">
+                      <strong className="mb-10">{product.suitable_key}</strong>
+                      <span> {product.suitable_value}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {product?.oem_key && product?.oem_value && (
+                <div style={{ margin: "40px 0" }}>
+                  <h2 className="mb-20">OEM Part Numbers</h2>
+                  <div className="specs-grid">
+                    <div className="spec-item">
+                      <strong className="mb-10">{product.oem_key}</strong>
+                      <span> {product.oem_value}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
 
           {activeTab === "specs" && (
