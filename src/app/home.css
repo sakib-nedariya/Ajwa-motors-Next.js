@@ -297,6 +297,8 @@
 
   .cta-section button{
     white-space: nowrap !important;
+    margin-top: 20px;
+    width: fit-content;
   }
 
   /* gallery section */
@@ -305,7 +307,7 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 450px) {
   /* product section */
   .product-section .product-tabs a {
     font-size: 16px;
